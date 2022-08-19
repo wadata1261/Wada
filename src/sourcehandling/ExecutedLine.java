@@ -25,6 +25,9 @@ public class ExecutedLine {
     public Object getValue(String name, String type){ //変数
         for(Map.Entry<LocalVariable, Object> e : variables.entrySet()){
             if(Objects.equals(name, e.getKey().name()) && Objects.equals(type, e.getKey().typeName())){
+                Object[] ob=new Object[10];
+                ob[0]=e.getValue();
+                //return ob;
                 return e.getValue();
             }
         }

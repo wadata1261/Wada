@@ -26,15 +26,15 @@ public class ExecutedLineList {
 
     //TODO 同名で型が違う変数の場合を考慮する必要あり
     // 変数名#型名などの形で名前を指定すれば、運用でカバーは可能
-    public Object getValue(int executeIndex, String name, String type){
+    public Object getValue(int executeIndex, String name, String type){//変数
         return this.executedLineList.get(executeIndex).getValue(name, type);
     }
 
-    public Object getValue(int executeIndex, String name, String type, int idx){
+    public Object getValue(int executeIndex, String name, String type, int idx){//1次元配列
         return this.executedLineList.get(executeIndex).getValue(name, type, idx);
     }
 
-    public Object getValue(int executeIndex, String name, String type, int idx1, int idx2){
+    public Object getValue(int executeIndex, String name, String type, int idx1, int idx2){//2次元配列
         return this.executedLineList.get(executeIndex).getValue(name, type, idx1, idx2);
     }
 

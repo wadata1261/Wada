@@ -17,7 +17,7 @@ public class Main {
         //javaファイルを取得
         String[] pathname = new String[10];
         File[] file =new File[9];
-        for(int i=0;i<1;i++) {
+        for(int i=0;i<100;i++) {
             pathname[i] = FileGet.fileGet();
             //いちいち取得するのが面倒な場合は，開発中だけ直指定すると楽になる
             //String pathname = "C:\\Users\\wadat\\IdeaProjects\\Sam.java";
