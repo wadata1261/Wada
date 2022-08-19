@@ -21,6 +21,7 @@ public class ExecutedLine {
         this.variables.put(key, value);
     }
 
+    //ここで変数別の配列入れ？
     public Object getValue(String name, String type){ //変数
         for(Map.Entry<LocalVariable, Object> e : variables.entrySet()){
             if(Objects.equals(name, e.getKey().name()) && Objects.equals(type, e.getKey().typeName())){
