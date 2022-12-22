@@ -2,6 +2,7 @@ package sourcehandling;
 
 import com.sun.jdi.LocalVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,7 +13,7 @@ public class ExecutedLine {
     private Map<LocalVariable, Object> variables;
 
     public ExecutedLine(int lineNumber, String methodName, Map<LocalVariable, Object> variables){
-        this.lineNumber = lineNumber;
+        this.lineNumber = lineNumber-2;
         this.methodName = methodName;
         this.variables = variables;
     }
@@ -21,18 +22,22 @@ public class ExecutedLine {
         this.variables.put(key, value);
     }
 
-    //ここで変数別の配列入れ？
+    public Map<LocalVariable, Object> getVariables() {
+        return variables;
+    }
+
     public Object getValue(String name, String type){ //変数
         for(Map.Entry<LocalVariable, Object> e : variables.entrySet()){
             if(Objects.equals(name, e.getKey().name()) && Objects.equals(type, e.getKey().typeName())){
-                Object[] ob=new Object[10];
-                ob[0]=e.getValue();
+                //
+
                 //return ob;
                 return e.getValue();
             }
         }
         return null;
     }
+
 
     public Object getValue(String name, String type, int idx){ //1次元配列
         Object obj = getValue(name, type);
@@ -52,37 +57,41 @@ public class ExecutedLine {
                 return ((List) l).get(idx2);
             }
         }
-
         return null;
     }
 
-    public void show(){
-        for(Map.Entry<LocalVariable, Object> e : variables.entrySet()){
-            System.out.print("line:"+this.lineNumber+" method:"+ this.methodName+" type:"+e.getKey().typeName()+" name:"+e.getKey().name()+" value:");
-            if(e.getValue() instanceof String){
-                System.out.println( e.getValue() );
-            }
-            if( e.getValue() instanceof List){
-                System.out.print("[");
-                for(Object o : (List)e.getValue() ){
-                    if(o instanceof List){
-                        System.out.print("[");
-                        for(Object o2 : (List)o ){
-                            if(o2 instanceof String){
-                                System.out.print(o2);
-                                System.out.print(",");
-                            }
-                        }
-                        System.out.print("]");
-                    }
+    public int getLineNumber(){return this.lineNumber;}
 
-                    if( o instanceof String){
-                        System.out.print(o);
-                    }
-                    System.out.print(",");
+    public void show(){
+        for(Map.Entry<LocalVariable, Object> e : variables.entrySet()) {
+
+                System.out.print("line:" + this.lineNumber + " method:" + this.methodName + " type:" + e.getKey().typeName() + " name:" + e.getKey().name() + " value:");
+                if (e.getValue() instanceof String) {
+                    System.out.println(e.getValue());
                 }
-                System.out.println("]");
-            }
+                if (e.getValue() instanceof List) {
+                    System.out.print("[");
+                    for (Object o : (List) e.getValue()) {
+                        if (o instanceof List) {
+                            System.out.print("[");
+                            for (Object o2 : (List) o) {
+                                if (o2 instanceof String) {
+                                    System.out.print(o2);
+                                    System.out.print(",");
+                                }
+                            }
+                            System.out.print("]");
+                        }
+
+                        if (o instanceof String) {
+                            System.out.print(o);
+                        }
+                        System.out.print(",");
+                    }
+                    System.out.println("]");
+                }
         }
+        //
+        //
     }
 }

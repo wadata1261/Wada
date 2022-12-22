@@ -13,15 +13,19 @@ import com.sun.jdi.request.StepRequest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Debugger {
     private Class debugClass;
     private int[] breakPointLines;
+    private String workDir;
+
+    //public Debugger(String workDir){ this.workDir = workDir; }
+
+
+
+
 
     private Map<String, Object> variables = new HashMap<String, Object>();
     ExecutedLineList executedLineList = new ExecutedLineList();
@@ -131,6 +135,11 @@ public class Debugger {
         }
 
     }
+    //
+
+
+
+
 
     public ExecutedLineList addLine(int lineNumber, String methodName, Map<LocalVariable, Value> visibleVariables, ExecutedLineList ell){
         Map<LocalVariable,Object> m = new HashMap<>();

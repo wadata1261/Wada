@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ここにページの概要が入ります。">
+
+    <title>PyScriptテスト</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <py-env>
+        - matplotlib
+        - numpy
+        - scipy
+    </py-env>
+<body>
+<div id="mpl"></div>
+<py-script output="mpl">
+    import numpy as np
+    import scipy.spatial as sp
+    import scipy.cluster as cl
+    import matplotlib.pyplot as plt
+
+    X_ = np.array([2, 11, 5, 1, 7])
+    X = X_[:,None]
+    X
+    #D = sp.distance.pdist(X, 'cityblock')
+    D = np.array([ 10.,  8.,  7.,  8.,  4., 2.,  5.,  8.,  7.,  3.])
+    sp.distance.squareform(D)
+    Z = cl.hierarchy.linkage(D, 'complete')
+    Z
+    fig, ax = plt.subplots(dpi=100)
+    dn = cl.hierarchy.dendrogram(Z, labels=list(X_), ax=ax)
+    ax.set_ylabel("Distance")
+    plt
+</py-script>
+
+</body>
+</html>

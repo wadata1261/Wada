@@ -2,12 +2,11 @@ package sourcehandling;
 
 import com.sun.jdi.LocalVariable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ExecutedLineList {
     private List<ExecutedLine> executedLineList;
+
 
     public ExecutedLineList() {
         this.executedLineList = new ArrayList<>();
@@ -17,6 +16,10 @@ public class ExecutedLineList {
     public int addLine(int lineNumber, String methodName, Map<LocalVariable, Object> variables) {
         executedLineList.add(new ExecutedLine(lineNumber, methodName, variables));
         return executedLineList.size()-1;
+    }
+
+    public List<ExecutedLine> getExecutedLineList() {
+        return executedLineList;
     }
 
     public int addLine(ExecutedLine executedLine) {
@@ -37,13 +40,18 @@ public class ExecutedLineList {
     public Object getValue(int executeIndex, String name, String type, int idx1, int idx2){//2次元配列
         return this.executedLineList.get(executeIndex).getValue(name, type, idx1, idx2);
     }
+    //
+
+
 
     public void show(){
         System.out.println("Executed Line List****************");
         for(ExecutedLine el : this.executedLineList){
             el.show();
         }
+
         System.out.println("****************");
+
     }
 
 }

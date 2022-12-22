@@ -43,7 +43,7 @@ public class MyVisitor extends VoidVisitorAdapter<String> {
         System.out.println(n + " 　　" + n.getRange().get().end.line + "行目"); //{1,2,3,4,6,7}　他の書き方のときは表示されない
         System.out.println(n.getValues().size()); //いっきに代入した時の配列要素数
         System.out.println(n.getValues().getParentNodeForChildren().getChildNodes() + " 　　" + n.getRange().get().end.line + "行目"); //1,2,3,4,6,7
-        System.out.println(n.getValues().get(3) + " 　　" + n.getRange().get().end.line + "行目"); //引数に配列の要素数を指定して変数表示
+        System.out.println(n.getValues().get(0/*3*/) + " 　　" + n.getRange().get().end.line + "行目"); //引数に配列の要素数を指定して変数表示
         System.out.println();
         super.visit(n, arg);
     }
