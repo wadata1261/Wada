@@ -5,18 +5,18 @@ import Flow.MinCostFlow;
 
 //ソースコードvll1,vll2のソースコード間距離の計測
 public class CodeDis {
-    public double codeDis;
+    public double codedis;
 
-    public double getCodeDis(){return this.codeDis;}
+    public double getCodedis(){return this.codedis;}
 
     //code間の距離
     public void CodeDis(Code c1,Code c2){
         MinCostFlow mcf=new MinCostFlow();
         mcf.MinCostFlow(c1.getvll(),c2.getvll());
         double cost=mcf.getCostdis();
-        this.codeDis=1-(cost/Math.max(c1.getvll().getValueLogList().size(),c2.getvll().getValueLogList().size()));
+        this.codedis =1-(cost/Math.max(c1.getvll().getValueLogList().size(),c2.getvll().getValueLogList().size()));
         System.out.println("c1:"+c1.getvll().getValueLogList().size()+" c2:"+c2.getvll().getValueLogList().size());
-        System.out.println("cd:"+this.codeDis);
+        System.out.println("cd:"+this.codedis);
     }
 
     public double nCodeDis(Node n1,Node n2){
@@ -56,7 +56,7 @@ public class CodeDis {
             vll1=vll2;
             vll2=va;
         }
-        codeDis=0;
+        codedis =0;
         double dnum=0;
         VarSim vs=new VarSim();
         for(ValueLog v2:vll2.getValueLogList()){
@@ -72,8 +72,8 @@ public class CodeDis {
             //System.out.println("m.getVarsim()="+m.getVarsim());
             dnum+=m.getVarsim();
         }*/
-        codeDis=(1-(dnum/vll1.getValueLogList().size()));
-        this.codeDis=codeDis;
+        codedis =(1-(dnum/vll1.getValueLogList().size()));
+        this.codedis = codedis;
         //System.out.println((dnum/vll2.getValueLogList().size()));
     }
 }

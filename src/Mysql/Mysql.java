@@ -72,19 +72,19 @@ public class Mysql{
         ResultSet rs = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
                     "root",
                     "mysqlroot"
             );// "password"の部分は，各自の環境に合わせて変更してください。
 
-            pstmt = con.prepareStatement("select * from "+file);
-            String sql="select name from "+file;
+            //pstmt = con.prepareStatement("select * from "+file);
+            String sql="select name from anser."+file+";";
             Statement smt = con.createStatement();
-            int rowsCount = smt.executeUpdate(sql);
+            //int rowsCount = smt.sql);
 
-            rs = pstmt.executeQuery();
+            //rs = pstmt.executeQuery();
             pstmt = con.prepareStatement(sql);
 
 
@@ -115,8 +115,59 @@ public class Mysql{
                 }
             }
         }
-        fc.setNamelist(this.namelist);
         return this.namelist;
+    }
+
+    public void maketable(String file){
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        System.out.println(file);
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
+                    "root",
+                    "mysqlroot"
+            );// "password"の部分は，各自の環境に合わせて変更してください。
+
+            //pstmt = con.prepareStatement("create table anser."+file+"(name varchar(100),path varchar(100),boo boolean);");
+            String sql="create table anser."+file+"(name varchar(100),path varchar(100),boo boolean);";
+            Statement smt = con.createStatement();
+            int rowsCount = smt.executeUpdate(sql);
+
+            //rs = pstmt.executeQuery();
+            pstmt = con.prepareStatement(sql);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {

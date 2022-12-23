@@ -15,8 +15,8 @@ public class CodeDisMin {
         int a=0;
         for (int i=0;i<c.length;i++){
             cd.vllCodeDis(code.getvll(),c[i].getvll());
-            if(min>cd.getCodeDis()) {
-                min=cd.getCodeDis();
+            if(min>cd.getCodedis()) {
+                min=cd.getCodedis();
                 a=i;
             }
         }

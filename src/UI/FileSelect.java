@@ -16,6 +16,7 @@ public class FileSelect extends JFrame{
     JLabel[] label;
     JButton[] buttons1;
     JButton[] buttons2;
+    JButton newb;
     int size;
     String filename;
     public static void main(String args[]){
@@ -24,10 +25,15 @@ public class FileSelect extends JFrame{
     private static void run(){
         FileSelect frame = new FileSelect();
         frame.setVisible(true);
-    }
+}
     public String getFilename(){return filename;}
     public void actionPerformed(ActionEvent e) {
         Object obj=e.getSource();
+
+        if(obj == newb){
+            NewFile nf=new NewFile();
+            nf.run();
+        }
         for(int i=0;i<size;i++){
             if(obj == buttons1[i]){ //追加
                 AnserCheck.first(label[i].getText());
@@ -54,6 +60,11 @@ public class FileSelect extends JFrame{
                 }
                 FileCreate fc=new FileCreate();
                 fc.FileCreate(label[i].getText());
+                File file=new File("");
+                String name= file.getAbsolutePath();
+                String paths=name.substring(0,name.length()-5);
+                File dir=new File(paths+"\\createfile\\"+label[i].getText());
+                File[] list=dir.listFiles();
 
 
 
@@ -83,13 +94,20 @@ public class FileSelect extends JFrame{
             panels[i].add(buttons1[i]);
             panels[i].add(buttons2[i]);
         }
-
+        newb=new JButton("新規作成");
+        newb.addActionListener(this::actionPerformed);
+        JLabel l=new JLabel();
         JPanel p2 = new JPanel();
         p2.setPreferredSize(new Dimension(300,200));
         p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
         for(int i=0;i<size;i++){
             p2.add(panels[i]);
         }
+
+        p2.add(newb);
+
+
+
 
         Container contentPane = getContentPane();
         getContentPane().add(p2, BorderLayout.CENTER);

@@ -1,5 +1,7 @@
 package UI;
 
+import Mysql.Mysql;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,6 +35,8 @@ public class NewFile extends JFrame implements ActionListener {
         Object obj=e.getSource();
         if(obj == button){
             label.setText(text1.getText());
+             Mysql ms=new Mysql();
+             ms.maketable(label.getText());
             fileCreate(String.valueOf(label.getText()));
             }
         if(obj == button1){
@@ -129,17 +133,16 @@ public class NewFile extends JFrame implements ActionListener {
         return f;
     }
 
-    public int getPathlength(){
+    public void getPathlength(String path){
         File file=new File("");
         pathname=new ArrayList<>();
         String name= file.getAbsolutePath();
         String paths=name.substring(0,name.length()-5);
-        File dir=new File(paths+"\\createfile");
+        File dir=new File(paths+"\\createfile\\"+path);
         File[] list=dir.listFiles();
         for(int i=0;i<list.length;i++){
             pathlength++;
         }
-        return pathlength;
     }
 
 

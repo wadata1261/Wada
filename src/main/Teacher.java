@@ -75,7 +75,7 @@ public class Teacher {
         List<Node> nodes=clusterBuilder.getNodelist();
         output(result,0);
         List<ClusterList> clusterLists=new ArrayList<>();
-
+        System.out.println("kokomade");
         for (int i=0;i<nodes.size();i++){
             int ans=0;
                 System.out.println("koko"+i);

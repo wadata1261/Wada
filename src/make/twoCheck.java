@@ -62,7 +62,7 @@ public class twoCheck {
             //System.out.println("MLIST:name1="+m.getV1().getName()+",name2="+m.getV2().getName()+",varsim="+m.getVarsim());
         }
         cd.vllCodeDis(vll,vll2);
-        System.out.println("CodeDis="+cd.getCodeDis());
+        System.out.println("CodeDis="+cd.getCodedis());
     }
 
     public double getCodedis() {

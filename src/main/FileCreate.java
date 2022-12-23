@@ -12,7 +12,7 @@ import java.util.List;
 
 public class FileCreate {
     public ArrayList<Double> valuelist;
-    private ArrayList<String> namelist;
+    private ArrayList<String> makelist;
     public static void main(String[] args){
        // FileCreate("test");
 
@@ -40,10 +40,8 @@ public class FileCreate {
         list1.add("import scipy.spatial as sp");
         list1.add("import scipy.cluster as cl");
         list1.add("import matplotlib.pyplot as plt");
-        list1.add("X_ = np.array([2, 11, 5, 1, 7])");
-        list1.add("X = X_[:,None]");
-        list1.add("X");
-        list1.add("D = np.array([ 10.,  8.,  7.,  8.,  4., 2.,  5.,  8.,  7.,  3.])");
+
+
         return list1;
     }
     public static List<String> list2(){
@@ -56,6 +54,15 @@ public class FileCreate {
         list1.add("ax.set_ylabel(\"Distance\")");
         list1.add("plt");
         list1.add("</py-script>");
+        list1.add("<script language=\"javascript\" type=\"text/javascript\">");
+        list1.add("function OnButtonClick() {");
+        list1.add("target = document.getElementById(\"output\");");
+        list1.add("target.innerHTML = \"Penguin\";");
+        list1.add("}");
+        list1.add("</script>");
+        list1.add("<input type=\"button\" value=\"Exec\" onclick=\"OnButtonClick();\"/><br />");
+        list1.add("<br />");
+        list1.add("<div id=\"output\"></div>");
         list1.add("</body>");
         list1.add("</html>");
         return list1;
@@ -79,6 +86,12 @@ public class FileCreate {
                     bw.write(list1.get(i));
                     bw.newLine();
                 }
+
+                for(int l=0;l<this.makelist.size();l++){
+                    bw.write(this.makelist.get(l));
+                    bw.newLine();
+                }
+
                 //ここで距離を入れる
                 for(int j=0;j<list2.size();j++){
                     bw.write(list2.get(j));
@@ -94,6 +107,25 @@ public class FileCreate {
     }
     static int count=0;
 
+    public void setlist(int num,ArrayList<String> dis){
+        this.makelist=new ArrayList<>();
+        String xlist="[";
+        for(int i=0;i<num;i++){
+            xlist+=i+",";
+        }
+        xlist+="]";
+        makelist.add("X_ = np.array("+xlist+")");
+        makelist.add("X = X_[:,None]");
+        makelist.add("X");
+        String dlist="[";
+        for(int j=0;j<dis.size();j++){
+            dlist+=dis.get(j)+".,";
+
+        }
+        dlist+="]";
+        makelist.add("D = np.array("+dlist+")");
+    }
+
     private static boolean checkBeforeWritefile(File file){
         if (file.exists()){
             if (file.isFile() && file.canWrite()){
@@ -103,8 +135,9 @@ public class FileCreate {
         return false;
     }
 
+
+
     public void setValuelist(ArrayList<Double> valuelist){this.valuelist=valuelist;}
-    public void setNamelist(ArrayList<String> namelist){this.namelist=namelist;}
     public void setman(){
 
     }

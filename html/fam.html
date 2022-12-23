@@ -27,7 +27,7 @@
     X = X_[:,None]
     X
     #D = sp.distance.pdist(X, 'cityblock')
-    D = np.array([ 10.,  8.,  7.,  8.,  4., 2.,  5.,  8.,  7.,  3.])
+    D = np.array([ 10.,  8.,  7.,  8.,  4., 2.,  5.,  8.,  7.,  3.,])
     sp.distance.squareform(D)
     Z = cl.hierarchy.linkage(D, 'complete')
     Z

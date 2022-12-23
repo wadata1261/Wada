@@ -1,6 +1,5 @@
 package Cluster;
 
-import make.Code;
 import make.CodeDis;
 
 import java.util.ArrayList;
@@ -24,8 +23,8 @@ public class MakeCluster {
         while (!this.list.isEmpty()){
             for (int i = 0; i < list.size(); i++) {
                 cd.CodeDis(this.lists.get(j).get(0).getCode(),this.list.get(i).getCode());
-                if(cd.getCodeDis()<min){
-                    min= cd.getCodeDis();
+                if(cd.getCodedis()<min){
+                    min= cd.getCodedis();
                     item=this.list.get(i);
                 }
             }
