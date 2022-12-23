@@ -13,8 +13,8 @@ public class twoCheck {
         MatchingList mlist=new MatchingList();
         CodeDis cd=new CodeDis();
         ell.show();
-        vll = vlg.Print(ell);
-        vll2 = vlg2.Print(ell2);
+        vll = vlg.MakeList(ell);
+        vll2 = vlg2.MakeList(ell2);
         for (ValueLog v : vll.getValueLogList()) {
             System.out.println("Main type=" + v.getType() + ",name=" + v.getName() + ",value=" + v.getValueLog());
         }

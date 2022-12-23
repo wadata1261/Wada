@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ここにページの概要が入ります。">
+<title>PyScriptテスト</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+<py-env>
+- matplotlib
+- numpy
+- scipy
+</py-env>
+<body>
+<div id="mpl"></div>
+<py-script output="mpl">
+import numpy as np
+import scipy.spatial as sp
+import scipy.cluster as cl
+import matplotlib.pyplot as plt
+X_ = np.array([0,1,2,3])
+X = X_[:,None]
+X
+D = np.array([0.2592592592592593,0.42640692640692646,0.19999999999999996,0.5112554112554113,0.29333333333333333,0.24458874458874458,])
+sp.distance.squareform(D)
+Z = cl.hierarchy.linkage(D, 'complete')
+Z
+fig, ax = plt.subplots(dpi=100)
+dn = cl.hierarchy.dendrogram(Z, labels=list(X_), ax=ax)
+ax.set_ylabel("Distance")
+plt
+</py-script>
+<script language="javascript" type="text/javascript">
+function OnButtonClick() {
+target = document.getElementById("output");
+target.innerHTML = "Penguin";
+}
+</script>
+<input type="button" value="Exec" onclick="OnButtonClick();"/><br />
+<br />
+<div id="output"></div>
+</body>
+</html>

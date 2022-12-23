@@ -1,6 +1,5 @@
 package make;
 
-import Cluster.Node;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
@@ -9,9 +8,7 @@ import sourcehandling.Compiler;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 public class Code {
     public ExecutedLineList ell;
@@ -93,7 +90,7 @@ public class Code {
     public ValueLogList getvll(){
         ValueLogList vll = new ValueLogList();
         ValueLogGet vlg = new ValueLogGet();
-        vll = vlg.Print(this.ell);
+        vll = vlg.MakeList(this.ell);
         this.valueLogList=vll;
         return this.valueLogList;
     }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
+    static Code[] cs;
+    public String source;
     public static void main(String[] args){
         Student s=new Student();
         s.run();
@@ -64,6 +66,7 @@ public class Student {
         c[i] = new Code(paths.get(i));
         c[i].Code();
     }
+        this.cs=c;
     Code anser=getAnser(path,c);
         System.out.println("ANS"+anser.getPath());
     MinCostFlow mcf=new MinCostFlow();
@@ -72,6 +75,7 @@ public class Student {
         mcf.getCostdis();
     MinPear mp= mcf.getmp();
         mp.Min();
+        this.source=anser.getSource();
         System.out.println(anser.getSource());
 }
 
@@ -92,8 +96,24 @@ public class Student {
         }
         return count;
     }
+    public int getCount(){return this.count;}
     public static Code getAnser(String path,Code[] c){
         CodeDisMin cdm = new CodeDisMin(c, path);
         return cdm.codedismin();
     }
+
+    public ArrayList<Double> getList(){
+        ArrayList<Double> list=new ArrayList<>();
+        MinCostFlow mcf=new MinCostFlow();
+        for(int i=0;i<this.cs.length;i++){
+            for(int j=i+1;j<this.cs.length;j++){
+                mcf.MinCostFlow(this.cs[i].getvll(),this.cs[j].getvll());
+                list.add(mcf.getCostdis());
+            }
+        }
+        return list;
+    }
+
+    public String getSource(){return this.source;}
+
 }

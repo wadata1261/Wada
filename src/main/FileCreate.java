@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,11 +14,12 @@ import java.util.List;
 public class FileCreate {
     public ArrayList<Double> valuelist;
     private ArrayList<String> makelist;
+     public String sorce;
     public static void main(String[] args){
        // FileCreate("test");
 
     }
-    public static List<String> list1(){
+    public List<String> list1(){
         List<String> list1=new ArrayList<>();
         list1.add("<!DOCTYPE html>");
         list1.add("<html>");
@@ -44,7 +46,8 @@ public class FileCreate {
 
         return list1;
     }
-    public static List<String> list2(){
+    public List<String> list2(){
+        String a= "af";
         List<String> list1=new ArrayList<>();
         list1.add("sp.distance.squareform(D)");
         list1.add("Z = cl.hierarchy.linkage(D, 'complete')");
@@ -57,7 +60,7 @@ public class FileCreate {
         list1.add("<script language=\"javascript\" type=\"text/javascript\">");
         list1.add("function OnButtonClick() {");
         list1.add("target = document.getElementById(\"output\");");
-        list1.add("target.innerHTML = \"Penguin\";");
+        list1.add("target.innerHTML = \""+a+"\";");
         list1.add("}");
         list1.add("</script>");
         list1.add("<input type=\"button\" value=\"Exec\" onclick=\"OnButtonClick();\"/><br />");
@@ -68,8 +71,18 @@ public class FileCreate {
         return list1;
     }
     public void FileCreate(String path){
-        Path p=Paths.get(String.valueOf(Paths.get("").toAbsolutePath())+"\\createhtml\\"+path+".html");
+        File files=new File("");
+        String name= files.getAbsolutePath();
+        String paths=name.substring(0,name.length()-5);
+        Path p=Paths.get(paths+"\\htmlfiles\\"+path+".html");
         System.out.println(p);
+        if (Files.exists(p)) {
+            try{
+                Files.delete(p);
+            }catch(IOException e){
+                System.out.println(e);
+            }
+        }
         try{
             Files.createFile(p);
         }catch(IOException e){
@@ -107,7 +120,7 @@ public class FileCreate {
     }
     static int count=0;
 
-    public void setlist(int num,ArrayList<String> dis){
+    public void setlist(int num,ArrayList<Double> dis){
         this.makelist=new ArrayList<>();
         String xlist="[";
         for(int i=0;i<num;i++){
@@ -119,7 +132,7 @@ public class FileCreate {
         makelist.add("X");
         String dlist="[";
         for(int j=0;j<dis.size();j++){
-            dlist+=dis.get(j)+".,";
+            dlist+=dis.get(j)+",";
 
         }
         dlist+="]";
@@ -135,11 +148,7 @@ public class FileCreate {
         return false;
     }
 
+    public void setSorce(String sorce){this.sorce=sorce;}
 
-
-    public void setValuelist(ArrayList<Double> valuelist){this.valuelist=valuelist;}
-    public void setman(){
-
-    }
 
 }

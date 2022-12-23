@@ -10,7 +10,7 @@ public class ValueLogGet {
     ValueLogList vll = new ValueLogList();
     ValueLogList vll2 = new ValueLogList();
 
-    public ValueLogList Print(ExecutedLineList ell) {
+    public ValueLogList MakeList(ExecutedLineList ell) {
 
 
         for (ExecutedLine el : ell.getExecutedLineList()) {

@@ -83,6 +83,14 @@ public class NearAnser extends JFrame{
                 String path=String.valueOf(p.toAbsolutePath());
                 System.out.println("84:"+paths+"\\createfile\\"+label[i].getText());
                 s.runs(paths+"\\createfile\\"+label[i].getText(),path);
+                ArrayList<Double> list=s.getList();
+                int num=s.getCount();
+                String source=s.getSource();
+                FileCreate fc=new FileCreate();
+                fc.setSorce(source);
+                fc.setlist(num,list);
+                fc.FileCreate(label[i].getText());
+
             }
         }
     }
