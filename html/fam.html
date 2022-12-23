@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0
+  Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +36,14 @@
     ax.set_ylabel("Distance")
     plt
 </py-script>
-
+<script language="javascript" type="text/javascript">
+        function OnButtonClick() {
+            target = document.getElementById("output");
+            target.innerHTML = "Penguin";
+        }
+    </script>
+<input type="button" value="Exec" onclick="OnButtonClick();"/><br />
+<br />
+<div id="output"></div>
 </body>
 </html>

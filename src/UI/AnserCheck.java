@@ -24,15 +24,14 @@ public class AnserCheck extends JFrame implements ActionListener {
     JRadioButton radio1;
     JRadioButton radio2;
     public static void main(String[] args){
-        Teacher t=new Teacher();
-        t.doto();
-        c=t.getC();
-        i=0;
-        doto();
+        //first("kadai_12");
     }
 
-    public void first(){
+
+
+    public static void first(String file){
         Teacher t=new Teacher();
+        patha=file;
         t.doto();
         c=t.getC();
         i=0;
@@ -139,9 +138,9 @@ public class AnserCheck extends JFrame implements ActionListener {
             if((radio1.isSelected() || radio2.isSelected()) && i<c.length) {
                 //labelpath.setText(text1.getText());
                 name = c[i].getParent();
-                System.out.println(name);
+                System.out.println("name is "+name/*.substring(0,name.length()-name.lastIndexOf("\\"))*/);
                 Mysql mysql = new Mysql();
-                mysql.run("test_8", name, c[i].getFileName(), bgroup.getSelection().getActionCommand());
+                mysql.run(this.patha, name, c[i].getFileName(), bgroup.getSelection().getActionCommand());
             }
         }
         if(obj == b1 && i>0){

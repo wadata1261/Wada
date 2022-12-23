@@ -71,7 +71,8 @@ public class Code {
         setSource(sourceText);
 
         //ソースをコンパイルしてクラスオブジェクトを取得
-        Class<?> clazz = Compiler.compile(className, sourceText); //違い
+        System.out.println(className+":nini;"+sourceText);
+        Class<?> clazz = Compiler.compile(className, sourceText);
 
         //Debuggerクラス（自作）のインスタンスを作成
         Debugger debugger = new Debugger();
@@ -84,6 +85,7 @@ public class Code {
             e.printStackTrace();
         }
         this.ell=ell;
+        System.out.println(ell);
     }
 
     public ExecutedLineList getEll(){return this.ell;}
@@ -91,7 +93,7 @@ public class Code {
     public ValueLogList getvll(){
         ValueLogList vll = new ValueLogList();
         ValueLogGet vlg = new ValueLogGet();
-        vll = vlg.Print(this.getEll());
+        vll = vlg.Print(this.ell);
         this.valueLogList=vll;
         return this.valueLogList;
     }

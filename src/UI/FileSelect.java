@@ -1,5 +1,9 @@
 package UI;
 
+import Mysql.Mysql;
+import main.FileCreate;
+import main.Teacher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,11 +30,32 @@ public class FileSelect extends JFrame{
         Object obj=e.getSource();
         for(int i=0;i<size;i++){
             if(obj == buttons1[i]){ //追加
+                AnserCheck.first(label[i].getText());
+                //AnserCheck ac=new AnserCheck();
+                //ac.first(label[i].getText());
+
+                System.out.println(label[i].getText());
+                filename=label[i].getText();
+            }
+            if(obj == buttons2[i]){ //クラスタ
                 System.out.println(label[i].getText());
                 filename=label[i].getText();
 
-            }
-            if(obj == buttons2[i]){ //クラスタ
+                Mysql ms=new Mysql();
+                System.out.println(label[i].getText());
+                ArrayList<String> msl=ms.getNamelist(label[i].getText());
+                for(int j=0;j<msl.size();j++){
+                    System.out.println(msl.get(j));
+                }
+                Teacher t=new Teacher();
+                ArrayList<Double> td=t.tofs(label[i].getText());
+                for(int j=0;j<td.size();j++){
+                    System.out.println(td.get(j));
+                }
+                FileCreate fc=new FileCreate();
+                fc.FileCreate(label[i].getText());
+
+
 
             }
         }
@@ -40,7 +65,7 @@ public class FileSelect extends JFrame{
         setBounds(100, 100, 600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         NewFile nw=new NewFile();
-        size=nw.getPathlength();
+        size=nw.getPathname().size();
         label=new JLabel[size];
         buttons1=new JButton[size];
         buttons2=new JButton[size];
@@ -50,6 +75,7 @@ public class FileSelect extends JFrame{
             buttons1[i]=new JButton("追加");
             buttons1[i].addActionListener(this::actionPerformed);
             buttons2[i]=new JButton("クラスタ");
+            buttons2[i].addActionListener(this::actionPerformed);
             panels[i]=new JPanel();
             panels[i].setPreferredSize(new Dimension(300,200));
             panels[i].setLayout(new BoxLayout(panels[i], BoxLayout.X_AXIS));

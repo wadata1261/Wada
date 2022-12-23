@@ -11,21 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileCreate {
+    public ArrayList<Double> valuelist;
+    private ArrayList<String> namelist;
     public static void main(String[] args){
-        FileCreate("test");
-        File newfile = new File("C:\\Users\\wadat\\IdeaProjects\\createfiles\\test.txt");
-        File renamefile = new File("C:\\Users\\wadat\\IdeaProjects\\createfiles\\test.html");
-
-        if (newfile.exists()) {
-            if (newfile.renameTo(renamefile)) {
-                System.out.println("ファイルの移動に成功しました");
-            } else {
-                System.out.println("ファイルの移動に失敗しました");
-            }
-        } else {
-            System.out.println("ファイルが存在しません");
-        }
-
+       // FileCreate("test");
 
     }
     public static List<String> list1(){
@@ -71,8 +60,9 @@ public class FileCreate {
         list1.add("</html>");
         return list1;
     }
-    public static void FileCreate(String path){
-        Path p=Paths.get("C:\\Users\\wadat\\IdeaProjects\\createfiles\\"+path+".txt");
+    public void FileCreate(String path){
+        Path p=Paths.get(String.valueOf(Paths.get("").toAbsolutePath())+"\\createhtml\\"+path+".html");
+        System.out.println(p);
         try{
             Files.createFile(p);
         }catch(IOException e){
@@ -110,7 +100,13 @@ public class FileCreate {
                 return true;
             }
         }
-
         return false;
     }
+
+    public void setValuelist(ArrayList<Double> valuelist){this.valuelist=valuelist;}
+    public void setNamelist(ArrayList<String> namelist){this.namelist=namelist;}
+    public void setman(){
+
+    }
+
 }

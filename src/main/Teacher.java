@@ -1,6 +1,7 @@
 package main;
 
 import Cluster.Cluster;
+import Cluster.NearCodeDis;
 import Cluster.ClusterBuilder;
 import Cluster.ClusterList;
 import Cluster.Item;
@@ -9,14 +10,38 @@ import make.CheckCode;
 import make.Code;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher {
     static List<String> paths=new ArrayList<>();
     static List<Cluster> clusters=new ArrayList<>();
+    public ArrayList<Double> valuelist;
     public static Code[] c;
-    public void doto(){
+
+    public ArrayList<Double> tofs(String filename){
+        File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\"+filename);
+        //File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\src\\testcode");
+        File files[] = file.listFiles();
+        int count=count(files);
+        String pathname[]=new String[count];
+        //for(int i=0;i<count;i++) pathname[i]=paths.get(i);
+        c=new Code[count];
+        List<Item> input = new ArrayList<>();
+        System.out.println(files);
+
+        for (int i=0;i<count;i++){
+            c[i]=new Code(paths.get(i));
+            c[i].Code();
+        }
+        NearCodeDis ncd=new NearCodeDis(c);
+        this.valuelist=ncd.getMinlist();
+        return this.valuelist;
+    }
+
+
+    public static void doto(){
         String path=FileGet.fileGet();
         File file = new File(path);
         //File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\src\\testcode");
@@ -42,7 +67,7 @@ public class Teacher {
         System.out.println(list);
     }
     public static void main(String[] args){
-
+        doto();
     }
     public static void makeCluster(List<Item> input){
         ClusterBuilder clusterBuilder=new ClusterBuilder();
@@ -112,4 +137,7 @@ public class Teacher {
         }
     }
     public Code[] getC(){return this.c;}
+    public void getValuelist(String file){
+
+    }
 }

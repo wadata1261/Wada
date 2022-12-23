@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NewFile extends JFrame implements ActionListener {
     public ArrayList<String> pathname;
@@ -23,7 +25,7 @@ public class NewFile extends JFrame implements ActionListener {
         NewFile frame = new NewFile();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(10, 10, 800, 1000);
-        frame.setTitle("タイトル");
+        frame.setTitle("新規課題作成");
         frame.setVisible(true);
 
     }
@@ -48,14 +50,17 @@ public class NewFile extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel p = new JPanel();
         p.setLayout(null);
+        JLabel name=new JLabel("課題名");
         label=new JLabel();
-        button = new Button("フォルダ作成");
+        button = new Button("課題作成");
         button.setBounds(450, 10, 80, 30);
         button.addActionListener(this);
         text1 = new JTextField();
         text1.setBounds(300,10,150,30);
+        p.add(name);
         p.add(button);
         p.add(text1);
+
         JPanel panel1=new JPanel();
         button1=new Button("ファイル選択");
         button1.addActionListener(this);
@@ -95,12 +100,35 @@ public class NewFile extends JFrame implements ActionListener {
         String paths=name.substring(0,name.length()-5);
         File dir=new File(paths+"\\createfile");
         File[] list=dir.listFiles();
-        for(int i=0;i<list.length;i++){
-            pathname.add(list[i].getName());
+        for(int i=0;i<list.length;i++) {//System.out.println(list[i]);
+        String a=list[i].getAbsolutePath();
+        System.out.println(a);
+        }
+        ArrayList<File> lists=removelist(list);
+        for(int i=0;i<lists.size();i++){
+            //pathname.add(list[i].getName());
+            System.out.println(lists.get(i));
+            pathname.add(lists.get(i).getName());
             //System.out.println(pathname.get(i));
         }
         return pathname;
     }
+
+    public static ArrayList<File> removelist(File[] files){
+        ArrayList<File> f=new ArrayList<>(Arrays.asList(files));
+        for(int i=0;i<files.length;i++) {
+            String str = files[i].getName();
+            String result = str.substring(str.lastIndexOf('\\') + 1);
+            if(result.equals("createfile.iml")){
+                f.remove(files[i]);
+            }
+            if(result.equals(".idea")){
+                f.remove(files[i]);
+            }
+        }
+        return f;
+    }
+
     public int getPathlength(){
         File file=new File("");
         pathname=new ArrayList<>();
@@ -113,4 +141,6 @@ public class NewFile extends JFrame implements ActionListener {
         }
         return pathlength;
     }
+
+
 }
