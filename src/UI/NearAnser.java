@@ -1,6 +1,7 @@
 package UI;
 
 import Mysql.Mysql;
+import Mysql.Mysqllist;
 import main.FileCreate;
 import main.FileGet;
 import main.Student;
@@ -70,7 +71,7 @@ public class NearAnser extends JFrame{
 
                 Mysql ms=new Mysql();
                 System.out.println("text"+label[i].getText());
-                ArrayList<String> msl=ms.getNamelist(label[i].getText());
+                ArrayList<Mysqllist> msl=ms.getMysqllist(label[i].getText());
                 for(int j=0;j<msl.size();j++){
                     System.out.println("75:"+msl.get(j));
                 }
@@ -88,7 +89,7 @@ public class NearAnser extends JFrame{
                 String source=s.getSource();
                 FileCreate fc=new FileCreate();
                 fc.setSorce(source);
-                fc.setlist(num,list);
+                fc.setlist(msl,list);
                 fc.FileCreate(label[i].getText());
 
             }

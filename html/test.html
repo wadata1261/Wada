@@ -1,90 +1,95 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <title>D3 v5 hierarchy cluster v4/v5</title>
-    <!-- 1. スタイルの準備 -->
-    <style>
-  .link {
-    fill: none;
-    stroke: #555;
-    stroke-opacity: 0.4;
-    stroke-width: 1.5px;
-  }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
 
+    <body>
+<script language="javascript" type="text/javascript">
+        function makeTable(data, tableId){
+    // 表の作成開始
+    var rows=[];
+    var table = document.createElement("table");
+
+    // 表に2次元配列の要素を格納
+    for(i = 0; i < data.length; i++){
+        rows.push(table.insertRow(-1));  // 行の追加
+        for(j = 0; j < data[0].length; j++){
+            cell=rows[i].insertCell(-1);
+            cell.appendChild(document.createTextNode(data[i][j]));
+            // 背景色の設定
+            if(i==0){
+                cell.style.backgroundColor = "#bbb"; // ヘッダ行
+            }else{
+                cell.style.backgroundColor = "#ddd"; // ヘッダ行以外
+            }
+        }
+    }
+    // 指定したdiv要素に表を加える
+    document.getElementById(tableId).appendChild(table);
+}
+window.onload = function(){
+// 表のデータ
+var data = [[11, "under", 13],
+            [21, 22, 23],
+            [31, 32, 33],
+            [411, 42, 43],];
+
+// 表の動的作成
+makeTable(data,"table");
+};
+    </script>
+</body>
 <body>
-<svg width="1000" height="600"></svg>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script>
-  // 2. 描画用のデータ準備
-  var width = document.querySelector("svg").clientWidth-100;
-  var height = document.querySelector("svg").clientHeight;
-  var data = {
-    "name": "0",
-    "children": [{
-    "name": "test" },
-      {"name": "1",
-        "children": [{ "name": "2",
-           "children":[{"name":"tom"},
-             {"name":"3",
-              "children":[{"name":"m"},{"name":"m4"}]
-           }]
-      },
-      { "name": "2",
-         "children":[{"name":"m5"},{"name":"3",
-           "children":[{"name":"m3"},{"name":"4",
-             "children":[{"name":"m2"},{"name":"tom2"}]
-           }]
-         }]
-      },
-    ]},
-    ]
-  };
 
-  // 3. 描画用のデータ変換
-  root = d3.hierarchy(data);
+<script language="javascript" type="text/javascript" >
+        function makeTable(data, tableId){
+    // 表の作成開始
+    var rows=[];
+    var table = document.createElement("table");
 
-  var cluster = d3.cluster()
-    .size([height, width - 160])
-    //  .nodeSize([50,300]) ;
-    //  .separation(function(a, b) { return(a.parent == b.parent ? 1 : 2); });
+    // 表に2次元配列の要素を格納
+    for(i = 0; i < data.length; i++){
+        rows.push(table.insertRow(-1));  // 行の追加
+        for(j = 0; j < data[0].length; j++){
+            cell=rows[i].insertCell(-1);
+            cell.appendChild(document.createTextNode(data[i][j]));
+            // 背景色の設定
+            if(i==0){
+                cell.style.backgroundColor = "#bbb"; // ヘッダ行
+            }else{
+                cell.style.backgroundColor = "#ddd"; // ヘッダ行以外
+            }
+        }
+    }
+    // 指定したdiv要素に表を加える
+    document.getElementById(tableId).appendChild(table);
+}
+window.onload = function(){
+// 表のデータ
+var data = [[11, "under", 13],
+            [21, 22, 23],
+            [31, 32, 33],
+            [4, 42, 43],];
 
-  cluster(root);
-
-  // 4. svg要素の配置
-  g = d3.select("svg").append("g").attr("transform", "translate(80,0)");
-  var link = g.selectAll(".link")
-    .data(root.descendants().slice(1))
-    .enter()
-    .append("path")
-    .attr("class", "link")
-    .attr("d", function(d) {
-      return "M" + d.y + "," + d.x +
-        "C" + (d.parent.y + 100) + "," + d.x +
-        " " + (d.parent.y + 100) + "," + d.parent.x +
-        " " + d.parent.y + "," + d.parent.x;
-    });
-
-  var node = g.selectAll(".node")
-    .data(root.descendants())
-    .enter()
-    .append("g")
-    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
-
-  node.append("circle")
-    .attr("r", 8)
-    .attr("fill", "#999");
-
-  node.append("text")
-    .attr("dy", 3)
-    .attr("x", function(d) { return d.children ? -12 : 12; })
-    .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-    .attr("font-size", "200%")
-    .text(function(d) { return d.data.name; });
-  </script>
+// 表の動的作成
+makeTable(data,"tables");
+};
+    </script>
 </body>
 
+
+
+</head>
+<body>
+ko
+<div id="tables"></div>
+<div id="table"></div>
+ko
+
+ko
+</body>
+<body>
+
+</body>
 </html>

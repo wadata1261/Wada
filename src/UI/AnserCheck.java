@@ -10,13 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AnserCheck extends JFrame implements ActionListener {
-    JLabel label;
+    JLabel labelfin;
     JLabel labelpath;
     JButton button1;
     JButton to,from;
     JTextField text1;
-    JPanel p2;
-    JButton b1,b2;
+    JPanel p2,p=new JPanel();
+    JButton b1,b2,fin;
     static Code[] c;
     static int i;
     ButtonGroup bgroup;
@@ -24,12 +24,12 @@ public class AnserCheck extends JFrame implements ActionListener {
     JRadioButton radio1;
     JRadioButton radio2;
     public static void main(String[] args){
-        //first("kadai_12");
+        First("kadai12_1");
     }
 
 
 
-    public static void first(String file){
+    public static void First(String file){
         Teacher t=new Teacher();
         patha=file;
         t.doto();
@@ -111,11 +111,18 @@ public class AnserCheck extends JFrame implements ActionListener {
         JPanel p2 = new JPanel();
         p2.setPreferredSize(new Dimension(300,200));
         p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
-
+        fin=new JButton("課題選択画面へ");
+        fin.addActionListener(this);
+        p.add(fin);
         p2.add(panel1);
         p2.add(check);
         p2.add(button);
         p2.add(bu);
+        labelfin=new JLabel();
+        labelpath=new JLabel();
+        p2.add(labelpath);
+        p2.add(p);
+        p2.add(labelfin);
 
 
         Container contentPane = getContentPane();
@@ -126,6 +133,11 @@ public class AnserCheck extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj=e.getSource();
+
+        if(i==c.length-1){
+            labelfin.setText("全解答終了");
+        }
+
         String name=null;
         if(radio1.isSelected()){
             System.out.println(true);
@@ -141,6 +153,7 @@ public class AnserCheck extends JFrame implements ActionListener {
                 System.out.println("name is "+name/*.substring(0,name.length()-name.lastIndexOf("\\"))*/);
                 Mysql mysql = new Mysql();
                 mysql.run(this.patha, name, c[i].getFileName(), bgroup.getSelection().getActionCommand());
+                labelpath.setText("確定："+bgroup.getSelection().getActionCommand());
             }
         }
         if(obj == b1 && i>0){
@@ -152,5 +165,9 @@ public class AnserCheck extends JFrame implements ActionListener {
                 doto();
         }
 
+        if(obj==fin){
+            FileSelect fs=new FileSelect();
+            fs.run();
+        }
     }
 }

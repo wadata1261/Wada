@@ -14,6 +14,7 @@
         - matplotlib
         - numpy
         - scipy
+        - plotly
     </py-env>
 <body>
 <div id="mpl"></div>
@@ -23,11 +24,11 @@
     import scipy.cluster as cl
     import matplotlib.pyplot as plt
 
-    X_ = np.array([2, 11, 5, 1, 7,])
+    X_ = np.array([1, 2, 3, 4, 5,])
     X = X_[:,None]
     X
     #D = sp.distance.pdist(X, 'cityblock')
-    D = np.array([10.,8.,7.,8.,4.,2.,5.,8.,7.,3.,])
+    D = np.array([10.,39.,30.,8.,4.,2.,5.,8.,7.,1.,])
     sp.distance.squareform(D)
     Z = cl.hierarchy.linkage(D, 'complete')
     Z
@@ -36,14 +37,31 @@
     ax.set_ylabel("Distance")
     plt
 </py-script>
-<script language="javascript" type="text/javascript">
-        function OnButtonClick() {
-            target = document.getElementById("output");
-            target.innerHTML = "Penguin";
-        }
-    </script>
-<input type="button" value="Exec" onclick="OnButtonClick();"/><br />
-<br />
-<div id="output"></div>
+
+</body>
+</head>
+</html>
+<html>
+<body>
+<table border="5">
+    <tr>
+        <th>セル</th>
+        <th>セル</th>
+    </tr>
+    <tr>
+        <td>セル</td>
+        <td>セル</td>
+    </tr>
+    <tr>
+        <td>セル</td>
+        <td>セル</td>
+    </tr>
+    <tr>
+        <td>セル</td>
+        <td>セル</td>
+    </tr>
+    <tr>
+
+</table>
 </body>
 </html>

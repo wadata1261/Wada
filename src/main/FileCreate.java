@@ -1,5 +1,7 @@
 package main;
 
+import Mysql.Mysqllist;
+
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileCreate {
-    public ArrayList<Double> valuelist;
+    private ArrayList<String> tablelist;
     private ArrayList<String> makelist;
      public String sorce;
     public static void main(String[] args){
@@ -57,22 +59,33 @@ public class FileCreate {
         list1.add("ax.set_ylabel(\"Distance\")");
         list1.add("plt");
         list1.add("</py-script>");
-        list1.add("<script language=\"javascript\" type=\"text/javascript\">");
-        list1.add("function OnButtonClick() {");
-        list1.add("target = document.getElementById(\"output\");");
-        list1.add("target.innerHTML = \""+a+"\";");
-        list1.add("}");
-        list1.add("</script>");
-        list1.add("<input type=\"button\" value=\"Exec\" onclick=\"OnButtonClick();\"/><br />");
-        list1.add("<br />");
-        list1.add("<div id=\"output\"></div>");
-        list1.add("</body>");
+        for(int i=0;i<this.tablelist.size();i++){
+            list1.add(list3().get(i));
+        }
         list1.add("</html>");
         return list1;
     }
+
+    public List<String> list3(){
+        List<String> list3=new ArrayList<>();
+        list3.add("<body>");
+        list3.add("<table border=\"5\">");
+        list3.add("<th>");
+        list3.add("<td>番号</td> <td>解答者</td> <td>正誤</td>");
+        list3.add("</th>");
+        for(int i=0;i<this.tablelist.size();i++){
+            list3.add(this.tablelist.get(i));
+
+        }
+        list3.add("</table>");
+        list3.add("</body>");
+        return list3;
+    }
+
     public void FileCreate(String path){
         File files=new File("");
         String name= files.getAbsolutePath();
+        //Path p=Paths.get(name+"\\"+path+".html");
         String paths=name.substring(0,name.length()-5);
         Path p=Paths.get(paths+"\\htmlfiles\\"+path+".html");
         System.out.println(p);
@@ -120,10 +133,10 @@ public class FileCreate {
     }
     static int count=0;
 
-    public void setlist(int num,ArrayList<Double> dis){
+    public void setlist(ArrayList<Mysqllist> msl, ArrayList<Double> dis){
         this.makelist=new ArrayList<>();
         String xlist="[";
-        for(int i=0;i<num;i++){
+        for(int i=1;i<=msl.size();i++){
             xlist+=i+",";
         }
         xlist+="]";
@@ -137,6 +150,29 @@ public class FileCreate {
         }
         dlist+="]";
         makelist.add("D = np.array("+dlist+")");
+    }
+
+    public void setTable(ArrayList<Mysqllist> msl){
+        this.tablelist=new ArrayList<>();
+        System.out.println(msl.size());
+        for(int i=0;i<msl.size();i++){
+            int a=i+1;
+            this.tablelist.add("<tr>");
+            this.tablelist.add("<td>"+a+" ： </td>");
+            this.tablelist.add("<td>"+msl.get(i).getName()+" ： </td>");
+            this.tablelist.add("<td>"+msl.get(i).isBoo()+"</td>");
+            this.tablelist.add("</tr>");
+        }
+        this.tablelist.add("<tr>");
+        this.tablelist.add("<td>  </td>");
+        this.tablelist.add("<td>  </td>");
+        this.tablelist.add("<td>  </td>");
+        this.tablelist.add("</tr>");
+
+        for(int i=0;i<this.tablelist.size();i++){
+            System.out.println(this.tablelist.get(i));
+        }
+
     }
 
     private static boolean checkBeforeWritefile(File file){

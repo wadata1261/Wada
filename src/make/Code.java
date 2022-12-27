@@ -21,9 +21,10 @@ public class Code {
     public static void main(String[] args){
         Code c=new Code("\\Users\\wadat\\IdeaProjects\\File\\Wada\\src\\testcode\\Main.java");
         c.Code();
-        System.out.println(c.getSource());
-        System.out.println();
-        System.out.println(c.getAnser());
+        c.CodeName();
+        //System.out.println(c.getSource());
+        //System.out.println();
+        //System.out.println(c.getAnser());
     }
 
     public Code(String path){
@@ -125,6 +126,27 @@ public class Code {
         System.out.println(str);
         String result=str.substring(str.lastIndexOf('\\')+1);
         return result;
+    }
+
+    public String CodeName(){
+        File file=new File(this.path);
+        String str=file.getParent();
+        String s=file.getName();
+        //System.out.println("s"+s);
+        //System.out.println("str:"+str);
+        String str2=str.substring(str.lastIndexOf('\\')+1);
+        //System.out.println("str2:"+str2);
+        String result=str2.substring(str2.lastIndexOf('\\')+1);
+        //System.out.println("result:"+result);
+        return result;
+    }
+
+    public String checkName(){
+        File file=new File(this.path);
+        String s=file.getName();
+        String ss=CodeName()+"\\"+s;
+        System.out.println("ss:"+ss);
+        return ss;
     }
 
 

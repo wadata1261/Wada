@@ -6,6 +6,7 @@ import Cluster.ClusterBuilder;
 import Cluster.ClusterList;
 import Cluster.Item;
 import Cluster.Node;
+import Mysql.ReList;
 import make.CheckCode;
 import make.Code;
 
@@ -21,7 +22,8 @@ public class Teacher {
     public static Code[] c;
 
     public ArrayList<Double> tofs(String filename){
-        File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\"+filename);
+        File file = new File(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\createfile\\"+filename);
+        System.out.println(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\createfile\\"+filename);
         //File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\src\\testcode");
         File files[] = file.listFiles();
         int count=count(files);
@@ -31,12 +33,16 @@ public class Teacher {
         List<Item> input = new ArrayList<>();
         System.out.println(files);
 
+
         for (int i=0;i<count;i++){
             c[i]=new Code(paths.get(i));
             c[i].Code();
         }
         NearCodeDis ncd=new NearCodeDis(c);
         this.valuelist=ncd.getMinlist();
+        ReList rl=new ReList(filename,c);
+        rl.re();
+        c=rl.ReCode();
         return this.valuelist;
     }
 
@@ -107,6 +113,7 @@ public class Teacher {
         }
         return count;
     }
+    public int getCount(){return this.count;}
     static ArrayList list = new ArrayList<>();
     private static void output(Node node, int depth) {
         // インデントを表示

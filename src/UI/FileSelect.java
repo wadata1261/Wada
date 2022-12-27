@@ -1,6 +1,7 @@
 package UI;
 
 import Mysql.Mysql;
+import Mysql.Mysqllist;
 import main.FileCreate;
 import main.Teacher;
 
@@ -16,13 +17,16 @@ public class FileSelect extends JFrame{
     JLabel[] label;
     JButton[] buttons1;
     JButton[] buttons2;
+    JLabel lab;
     JButton newb;
     int size;
     String filename;
     public static void main(String args[]){
+
         run();
+
     }
-    private static void run(){
+    public static void run(){
         FileSelect frame = new FileSelect();
         frame.setVisible(true);
 }
@@ -36,7 +40,7 @@ public class FileSelect extends JFrame{
         }
         for(int i=0;i<size;i++){
             if(obj == buttons1[i]){ //追加
-                AnserCheck.first(label[i].getText());
+                AnserCheck.First(label[i].getText());
                 //AnserCheck ac=new AnserCheck();
                 //ac.first(label[i].getText());
 
@@ -49,7 +53,7 @@ public class FileSelect extends JFrame{
 
                 Mysql ms=new Mysql();
                 System.out.println(label[i].getText());
-                ArrayList<String> msl=ms.getNamelist(label[i].getText());
+                ArrayList<Mysqllist> msl=ms.getMysqllist(label[i].getText());
                 for(int j=0;j<msl.size();j++){
                     System.out.println(msl.get(j));
                 }
@@ -59,12 +63,17 @@ public class FileSelect extends JFrame{
                     System.out.println(td.get(j));
                 }
                 FileCreate fc=new FileCreate();
+                //fc.setSorce(source);
+                int num=t.getCount();
+                fc.setlist(msl,td);
+                fc.setTable(msl);
                 fc.FileCreate(label[i].getText());
                 File file=new File("");
                 String name= file.getAbsolutePath();
                 String paths=name.substring(0,name.length()-5);
                 File dir=new File(paths+"\\createfile\\"+label[i].getText());
                 File[] list=dir.listFiles();
+                lab.setText("ファイル作成場所："+paths+"\\createfile\\"+label[i].getText());
 
 
 
@@ -94,15 +103,21 @@ public class FileSelect extends JFrame{
             panels[i].add(buttons1[i]);
             panels[i].add(buttons2[i]);
         }
-        newb=new JButton("新規作成");
+        lab=new JLabel();
+        newb=new JButton("新規課題作成");
         newb.addActionListener(this::actionPerformed);
-        JLabel l=new JLabel();
+        JLabel l=new JLabel("追加：追加する解答のみのフォルダを選択");
+        JLabel l2=new JLabel("クラスタ：追加した解答のクラスタリング");
         JPanel p2 = new JPanel();
         p2.setPreferredSize(new Dimension(300,200));
         p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+        p2.add(l);
+        p2.add(l2);
         for(int i=0;i<size;i++){
             p2.add(panels[i]);
         }
+
+        p2.add(lab);
 
         p2.add(newb);
 
