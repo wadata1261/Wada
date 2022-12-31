@@ -33,7 +33,7 @@ public class FileSelect extends JFrame{
     public String getFilename(){return filename;}
     public void actionPerformed(ActionEvent e) {
         Object obj=e.getSource();
-
+        ArrayList<Double> td=new ArrayList<>();
         if(obj == newb){
             NewFile nf=new NewFile();
             nf.run();
@@ -58,27 +58,31 @@ public class FileSelect extends JFrame{
                     System.out.println(msl.get(j));
                 }
                 Teacher t=new Teacher();
-                ArrayList<Double> td=t.tofs(label[i].getText());
-                for(int j=0;j<td.size();j++){
-                    System.out.println(td.get(j));
-                }
+                td=t.tofs(label[i].getText());
+
+
                 FileCreate fc=new FileCreate();
                 //fc.setSorce(source);
                 int num=t.getCount();
                 fc.setlist(msl,td);
-                fc.setTable(msl);
+                fc.setTable(td);
                 fc.FileCreate(label[i].getText());
                 File file=new File("");
                 String name= file.getAbsolutePath();
                 String paths=name.substring(0,name.length()-5);
-                File dir=new File(paths+"\\createfile\\"+label[i].getText());
+                File dir=new File(paths+"\\anserfile\\"+label[i].getText());
                 File[] list=dir.listFiles();
-                lab.setText("ファイル作成場所："+paths+"\\createfile\\"+label[i].getText());
+                lab.setText("ファイル作成場所："+paths+"\\htmlfiles\\"+label[i].getText());
 
 
 
             }
         }
+        System.out.println("tds");
+        for(int s=0;s<td.size();s++){
+            System.out.println(td.get(s));
+        }
+        System.out.println("tdf");
     }
     public FileSelect(){
         setTitle("課題選択");

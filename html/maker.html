@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+  <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+  <py-env>
+    - numpy
+    - matplotlib
+    # 追加 ここから
+    - scikit-learn
+    - pandas
+    # 追加ここまで
+    - scipy
+  </py-env>
+  <title>PyScript Playground</title>
+</head>
+
+<body>
+<main class="py-5 grid gap-y-4 grid-cols-1 place-items-center">
+  <p id="title" class="text-center"></p>
+  <py-button id="graph-button" label="データを表示"></py-button>
+  <div id="graph-container"></div>
+  <!-- 追加 ここから -->
+  <py-button id="iris-button" label="データセットを分析"></py-button>
+  <div id="iris-container">
+    <p id="data-description"></p>
+    <div id="plot-area"></div>
+  </div>
+  <!-- 追加 ここまで -->
+</main>
+
+<py-script>
+  import numpy as np
+  import pandas as pd
+  import matplotlib.pyplot as plt
+
+  graph_button = Element('graph-button')
+  #list1
+  num=[0,1,2,3,4,5,6,]
+  name=['student1','student2','student3','student4','testman','student5','student6',]
+  path=['train01','train01','train01','train01','test','Train01','Train01',]
+  boo=['true','true','false','true','false','true','true',]
+  data = pd.DataFrame({'name':name,'path':path,'boo':boo})
+  #makelist
+  def display_graph(*ags, **kwgs):
+    pyscript.write('graph-container', data)
+
+  graph_button.element.onclick = display_graph
+</py-script>
+<!-- 追加 ここから -->
+<py-script>
+  from sklearn import datasets
+  import pandas as pd
+  import numpy as np
+  import scipy.cluster as cl
+
+  iris_button = Element('iris-button')
+  num=[0,1,2,3,4,5,6,]
+  name=['student1','student2','student3','student4','testman','student5','student6',]
+  path=['train01','train01','train01','train01','test','Train01','Train01',]
+  boo=['true','true','false','true','false','true','true',]
+  mylist=list(zip(name,path,boo))
+  data = pd.DataFrame(mylist,columns=[ 'name', 'path','boo'])
+  X_ = np.array(num)
+  X = X_[:,None]
+  X
+  D = np.array([0.2592592592592593,0.42640692640692646,0.19999999999999996,1.0,0.41666666666666674,0.20370370370370372,0.5112554112554113,0.29333333333333333,1.0,0.2433333333333333,0.2407407407407408,0.24458874458874458,0.9818181818181818,0.3658008658008659,0.3597402597402598,1.0,0.21666666666666667,0.2433333333333333,1.0,1.0,0.3766666666666667,])
+  #tablelist
+  Z = cl.hierarchy.linkage(D, 'complete')
+  Z
+  clu=cl.hierarchy.fcluster(Z ,0.5, criterion='distance')
+  data['cluster']=clu
+  fig, ax = plt.subplots(dpi=100)
+  dn = cl.hierarchy.dendrogram(Z,color_threshold=0.5, labels=list(X_), ax=ax)
+  ax.set_ylabel("Distance")
+
+  clus=data.sort_values('cluster') #クラスタの並び替え
+  clunum=clus.iloc[-1]['cluster'] #クラスタ数+1の取得
+
+  a = int(clunum)
+  clus = []
+  clus.append(['all',len(data),len(data.query('boo.str.match("true")',engine='python')),len(data.query('boo.str.match("false")',engine='python'))])
+  for i in range(1,a+1):
+    cs=data[data['cluster']==i]
+    clus.append([i,len(cs),len(cs.query('boo.str.match("true")',engine='python')),len(cs.query('boo.str.match("false")',engine='python'))])
+
+
+  ds=pd.DataFrame(clus,columns=['クラスタ','総数','true','false'])
+
+
+
+  df=pd.DataFrame({'all':[len(data),len(data.query('boo.str.match("true")', engine='python')),len(data.query('boo.str.match("false")',engine='python'))]})
+
+
+  def display_irisdata(*ags, **kwgs):
+    pyscript.write('data-description', ds)
+
+    pyscript.write('plot-area', fig)
+
+  iris_button.element.onclick = display_irisdata
+</py-script>
+<!-- 追加 ここまで -->
+
+</body>
+
+</html>
+#list2

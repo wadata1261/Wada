@@ -87,8 +87,8 @@ public class NewFile extends JFrame implements ActionListener {
         File file=new File("");
         String name= file.getAbsolutePath();
         String paths=name.substring(0,name.length()-5);
-        File dir=new File(paths+"\\createfile");
-        File newfile = new File(paths+"\\createfile\\"+path);
+        File dir=new File(paths+"\\anserfile");
+        File newfile = new File(paths+"\\anserfile\\"+path);
 
 
         if (newfile.mkdir()) {
@@ -102,7 +102,7 @@ public class NewFile extends JFrame implements ActionListener {
         pathname=new ArrayList<>();
         String name= file.getAbsolutePath();
         String paths=name.substring(0,name.length()-5);
-        File dir=new File(paths+"\\createfile");
+        File dir=new File(paths+"\\anserfile");
         File[] list=dir.listFiles();
         for(int i=0;i<list.length;i++) {//System.out.println(list[i]);
         String a=list[i].getAbsolutePath();
@@ -138,7 +138,7 @@ public class NewFile extends JFrame implements ActionListener {
         pathname=new ArrayList<>();
         String name= file.getAbsolutePath();
         String paths=name.substring(0,name.length()-5);
-        File dir=new File(paths+"\\createfile\\"+path);
+        File dir=new File(paths+"\\anserfile\\"+path);
         File[] list=dir.listFiles();
         for(int i=0;i<list.length;i++){
             pathlength++;

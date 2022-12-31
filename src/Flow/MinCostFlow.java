@@ -1,4 +1,5 @@
 package Flow;
+import Cluster.Node;
 import make.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class MinCostFlow {
 
     public ArrayList<ArrayList<Edge>> getList() {
         return list;
+    }
+    public void NMinCostFlow(Node n1,Node n2){
+
     }
 
     public void MinCostFlow(ValueLogList v1, ValueLogList v2) {

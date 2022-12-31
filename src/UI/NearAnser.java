@@ -6,6 +6,7 @@ import main.FileCreate;
 import main.FileGet;
 import main.Student;
 import main.Teacher;
+import make.Code;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,11 +84,15 @@ public class NearAnser extends JFrame{
                 Path p= Paths.get(FileGet.fileGets()); //1こ
                 String path=String.valueOf(p.toAbsolutePath());
                 System.out.println("84:"+paths+"\\createfile\\"+label[i].getText());
-                s.runs(paths+"\\createfile\\"+label[i].getText(),path);
+                //s.run(path,paths);
+                s.runs(paths+"\\anserfile\\"+label[i].getText(),path,label[i].getText());
                 ArrayList<Double> list=s.getList();
                 int num=s.getCount();
                 String source=s.getSource();
                 FileCreate fc=new FileCreate();
+                CodeView.setC(s.getAnser());
+                //cv.setC(s.getAnser());
+                //cv.run();
                 fc.setSorce(source);
                 fc.setlist(msl,list);
                 fc.FileCreate(label[i].getText());

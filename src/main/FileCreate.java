@@ -21,29 +21,42 @@ public class FileCreate {
        // FileCreate("test");
 
     }
-    public List<String> list1(){
+    public List<String> list1(){ //1
         List<String> list1=new ArrayList<>();
         list1.add("<!DOCTYPE html>");
         list1.add("<html>");
         list1.add("<head>");
         list1.add("<meta charset=\"UTF-8\">");
-        list1.add("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-        list1.add("<meta name=\"description\" content=\"ここにページの概要が入ります。\">");
-        list1.add("<title>PyScriptテスト</title>");
+        list1.add("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />");
+        list1.add("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />");
         list1.add("    <link rel=\"stylesheet\" href=\"https://pyscript.net/alpha/pyscript.css\" />");
         list1.add("    <script defer src=\"https://pyscript.net/alpha/pyscript.js\"></script>");
+
         list1.add("<py-env>");
         list1.add("- matplotlib");
         list1.add("- numpy");
         list1.add("- scipy");
+        list1.add("- pandas");
         list1.add("</py-env>");
+        list1.add("<title>PyScript Playground</title>");
+        list1.add("</head>");
         list1.add("<body>");
-        list1.add("<div id=\"mpl\"></div>");
-        list1.add("<py-script output=\"mpl\">");
+        list1.add("<main class=\"py-5 grid gap-y-4 grid-cols-1 place-items-center\">");
+        list1.add("     <py-button id=\"graph-button\" label=\"データを表示\"></py-button>");
+        list1.add("     <div id=\"graph-container\"></div>");
+        list1.add("     <py-button id=\"iris-button\" label=\"データセットを分析\"></py-button>");
+        list1.add("     <div id=\"iris-container\">");
+        list1.add("         <p id=\"data-description\"></p>");
+        list1.add("         <div id=\"plot-area\"></div>");
+        list1.add("     </div>");
+        list1.add("</main>");
+        list1.add("<py-script>");
         list1.add("import numpy as np");
+        list1.add("import pandas as pd");
         list1.add("import scipy.spatial as sp");
         list1.add("import scipy.cluster as cl");
         list1.add("import matplotlib.pyplot as plt");
+        list1.add("graph_button = Element('graph-button')");
 
 
         return list1;
@@ -51,34 +64,56 @@ public class FileCreate {
     public List<String> list2(){
         String a= "af";
         List<String> list1=new ArrayList<>();
-        list1.add("sp.distance.squareform(D)");
         list1.add("Z = cl.hierarchy.linkage(D, 'complete')");
         list1.add("Z");
+        list1.add("clu=cl.hierarchy.fcluster(Z ,0.5, criterion='distance')");
+        list1.add("data['cluster']=clu");
         list1.add("fig, ax = plt.subplots(dpi=100)");
-        list1.add("dn = cl.hierarchy.dendrogram(Z, labels=list(X_), ax=ax)");
+        list1.add("dn = cl.hierarchy.dendrogram(Z,color_threshold=0.5, labels=list(X_), ax=ax)");
         list1.add("ax.set_ylabel(\"Distance\")");
-        list1.add("plt");
+        list1.add("clus=data.sort_values('cluster')");
+        list1.add("clunum=clus.iloc[-1]['cluster']");
+        list1.add("a = int(clunum)");
+        list1.add("clus = []");
+        list1.add("clus.append(['all',len(data),len(data.query('boo.str.match(\"true\")',engine='python')),len(data.query('boo.str.match(\"false\")',engine='python'))])");
+        list1.add("for i in range(1,a+1):");
+        list1.add("     cs=data[data['cluster']==i]");
+        list1.add("     clus.append([i,len(cs),len(cs.query('boo.str.match(\"true\")',engine='python')),len(cs.query('boo.str.match(\"false\")',engine='python'))])");
+        list1.add("ds=pd.DataFrame(clus,columns=['クラスタ','総数','true','false'])");
+        list1.add("def display_irisdata(*ags, **kwgs):");
+        list1.add("     pyscript.write('data-description', ds)");
+        list1.add("     pyscript.write('plot-area', fig)");
+        list1.add("iris_button.element.onclick = display_irisdata");
         list1.add("</py-script>");
-        for(int i=0;i<this.tablelist.size();i++){
-            list1.add(list3().get(i));
-        }
+        list1.add("</body>");
+        list1.add("</html>");
+
+
+
+        list1.add("</py-script>");
         list1.add("</html>");
         return list1;
     }
 
-    public List<String> list3(){
+    public List<String> list3(){ //3
         List<String> list3=new ArrayList<>();
-        list3.add("<body>");
-        list3.add("<table border=\"5\">");
-        list3.add("<th>");
-        list3.add("<td>番号</td> <td>解答者</td> <td>正誤</td>");
-        list3.add("</th>");
+        list3.add("def display_graph(*ags, **kwgs):");
+        list3.add(" pyscript.write('graph-container', data)");
+        list3.add("graph_button.element.onclick = display_graph");
+        list3.add("</py-script>");
+        list3.add("<py-script>");
+        list3.add("import pandas as pd");
+        list3.add("import numpy as np");
+        list3.add("import scipy.cluster as cl");
+        list3.add("iris_button = Element('iris-button')");
+
+        for(int i=0;i<this.makelist.size();i++){
+            list3.add(this.makelist.get(i));
+        }
         for(int i=0;i<this.tablelist.size();i++){
             list3.add(this.tablelist.get(i));
 
         }
-        list3.add("</table>");
-        list3.add("</body>");
         return list3;
     }
 
@@ -118,6 +153,11 @@ public class FileCreate {
                     bw.newLine();
                 }
 
+                for(int o=0;o<list3().size();o++){
+                    bw.write(list3().get(o));
+                    bw.newLine();
+                }
+
                 //ここで距離を入れる
                 for(int j=0;j<list2.size();j++){
                     bw.write(list2.get(j));
@@ -133,45 +173,42 @@ public class FileCreate {
     }
     static int count=0;
 
-    public void setlist(ArrayList<Mysqllist> msl, ArrayList<Double> dis){
+    public void setlist(ArrayList<Mysqllist> msl, ArrayList<Double> dis){ //2
         this.makelist=new ArrayList<>();
-        String xlist="[";
-        for(int i=1;i<=msl.size();i++){
-            xlist+=i+",";
+        String num="num=[";
+        String name="name=[";
+        String path="path=[";
+        String boo="boo=[";
+        for(int i=0;i<msl.size();i++){
+            num+=i+",";
+            name+="'"+msl.get(i).getName()+"',";
+            path+="'"+msl.get(i).getPath()+"',";
+            boo+="'"+msl.get(i).isBoo()+"',";
         }
-        xlist+="]";
-        makelist.add("X_ = np.array("+xlist+")");
-        makelist.add("X = X_[:,None]");
-        makelist.add("X");
+        num+="]";
+        name+="]";
+        path+="]";
+        boo+="]";
+        makelist.add(num);
+        makelist.add(name);
+        makelist.add(path);
+        makelist.add(boo);
+        makelist.add("data = pd.DataFrame({'name':name,'path':path,'boo':boo})");
+
+    }
+
+    public void setTable(ArrayList<Double> dis){
+        this.tablelist=new ArrayList<>();
+        tablelist.add("X_ = np.array(num)");
+        tablelist.add("X = X_[:,None]");
+        tablelist.add("X");
         String dlist="[";
         for(int j=0;j<dis.size();j++){
             dlist+=dis.get(j)+",";
 
         }
         dlist+="]";
-        makelist.add("D = np.array("+dlist+")");
-    }
-
-    public void setTable(ArrayList<Mysqllist> msl){
-        this.tablelist=new ArrayList<>();
-        System.out.println(msl.size());
-        for(int i=0;i<msl.size();i++){
-            int a=i+1;
-            this.tablelist.add("<tr>");
-            this.tablelist.add("<td>"+a+" ： </td>");
-            this.tablelist.add("<td>"+msl.get(i).getName()+" ： </td>");
-            this.tablelist.add("<td>"+msl.get(i).isBoo()+"</td>");
-            this.tablelist.add("</tr>");
-        }
-        this.tablelist.add("<tr>");
-        this.tablelist.add("<td>  </td>");
-        this.tablelist.add("<td>  </td>");
-        this.tablelist.add("<td>  </td>");
-        this.tablelist.add("</tr>");
-
-        for(int i=0;i<this.tablelist.size();i++){
-            System.out.println(this.tablelist.get(i));
-        }
+        tablelist.add("D = np.array("+dlist+")");
 
     }
 

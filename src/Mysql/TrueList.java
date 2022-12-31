@@ -1,21 +1,18 @@
 package Mysql;
 
-import main.Teacher;
 import make.Code;
 
 import java.util.ArrayList;
 
-public class ReList {
-    private ArrayList<String> namelist;
-    private ArrayList<String> pathlist;
+public class TrueList {
     private ArrayList<String> checklist;
     private Code[] result;
     private Code[] c;
-    public ReList(String file, Code[] c){ //file:課題名、c:コード群
+    public TrueList(String file, Code[] c){
         Mysql ms=new Mysql();
         ArrayList<Mysqllist> list=new ArrayList<>();
         checklist=new ArrayList<>();
-        list=ms.getMysqllist(file);
+        list=ms.boolist(file);
         for(int i=0;i<list.size();i++){
             this.checklist.add(list.get(i).getName()+"\\"+list.get(i).getPath()+".java");
         }
@@ -41,4 +38,5 @@ public class ReList {
     public Code[] ReCode(){
         return this.result;
     }
+
 }

@@ -250,7 +250,7 @@ public class Mysql{
         return this.pathlist;
     }
 
-    public ArrayList<Boolean> boolist(String file){
+    public ArrayList<Mysqllist> boolist(String file){
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -265,16 +265,16 @@ public class Mysql{
             );// "password"の部分は，各自の環境に合わせて変更してください。
 
 
-            String sql="select boo from anser.\""+file+"\";";
+            String sql="select * from anser.\""+file+"\" where boo = true;";
             pstmt = con.prepareStatement(sql);
             Statement smt = con.createStatement();
             int rowsCount = smt.executeUpdate(sql);
 
             rs = pstmt.executeQuery();
             pstmt = con.prepareStatement(sql);
-
+            ArrayList<Mysqllist> lists=new ArrayList<>();
             while (rs.next()) {
-                this.boolist.add(rs.getBoolean("boo"));
+                this.list.add(new Mysqllist(rs.getString("name"),rs.getString("path"),rs.getBoolean("boo")));
             }
 
         } catch (SQLException e) {
@@ -304,7 +304,7 @@ public class Mysql{
                 }
             }
         }
-        return this.boolist;
+        return this.list;
     }
 
 

@@ -22,8 +22,8 @@ public class Teacher {
     public static Code[] c;
 
     public ArrayList<Double> tofs(String filename){
-        File file = new File(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\createfile\\"+filename);
-        System.out.println(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\createfile\\"+filename);
+        File file = new File(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\anserfile\\"+filename);
+        System.out.println(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\anserfile\\"+filename);
         //File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\src\\testcode");
         File files[] = file.listFiles();
         int count=count(files);
@@ -38,11 +38,16 @@ public class Teacher {
             c[i]=new Code(paths.get(i));
             c[i].Code();
         }
+        for(int i=0;i<count;i++){
+            Item item=new Item(c[i]);
+            input.add(item);
+        }
         NearCodeDis ncd=new NearCodeDis(c);
         this.valuelist=ncd.getMinlist();
         ReList rl=new ReList(filename,c);
         rl.re();
         c=rl.ReCode();
+        makeCluster(input);
         return this.valuelist;
     }
 

@@ -145,7 +145,6 @@ public class Code {
         File file=new File(this.path);
         String s=file.getName();
         String ss=CodeName()+"\\"+s;
-        System.out.println("ss:"+ss);
         return ss;
     }
 

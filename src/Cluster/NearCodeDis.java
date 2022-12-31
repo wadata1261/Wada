@@ -16,6 +16,7 @@ public class NearCodeDis {
             for(int j=i+1;j<c.length;j++){
                 mfc.MinCostFlow(c[i].getvll(),c[j].getvll());
                 this.minlist.add(mfc.getCostdis());
+                System.out.println("c1:"+c[i].getPath()+"c2:"+c[j].getPath()+"dis:"+mfc.getCostdis());
             }
         }
     }
