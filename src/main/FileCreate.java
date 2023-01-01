@@ -143,6 +143,7 @@ public class FileCreate {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(file));
                 List<String> list1=list1();
                 List<String> list2=list2();
+                List<String> list3=list3();
                 for(int i=0;i<list1.size();i++){
                     bw.write(list1.get(i));
                     bw.newLine();
@@ -153,8 +154,8 @@ public class FileCreate {
                     bw.newLine();
                 }
 
-                for(int o=0;o<list3().size();o++){
-                    bw.write(list3().get(o));
+                for(int o=0;o<list3.size();o++){
+                    bw.write(list3.get(o));
                     bw.newLine();
                 }
 

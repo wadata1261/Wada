@@ -94,6 +94,10 @@ public class NearAnser extends JFrame{
                 //cv.setC(s.getAnser());
                 //cv.run();
                 fc.setSorce(source);
+                ArrayList<Double> td=new ArrayList<>();
+                Teacher t=new Teacher();
+                td=t.tofs(label[i].getText());
+                fc.setTable(list);
                 fc.setlist(msl,list);
                 fc.FileCreate(label[i].getText());
 
