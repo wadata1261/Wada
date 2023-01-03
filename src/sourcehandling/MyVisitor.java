@@ -52,7 +52,7 @@ public class MyVisitor extends VoidVisitorAdapter<String> {
         System.out.println(n + " 　　" + n.getRange().get().end.line + "行目 ここ"); //array1[0]
         System.out.println(n.getIndex() + " 　　" + n.getRange().get().end.line + "行目 こっこ"); //配列[]のなかの数字
 //                    System.out.println(n.getParentNode().get()+" ここっここ"); //分けて宣言した時のこんな感じarray1[0] = 3
-        System.out.println(n.getParentNode().get().getChildNodes().get(1) + " 　　" + n.getRange().get().end.line + "行目 こ"); //代入した値
+        System.out.println(n.getParentNode().get().getChildNodes().get(0) + " 　　" + n.getRange().get().end.line + "行目 こ"); //代入した値
         System.out.println();
         super.visit(n, arg);
     }

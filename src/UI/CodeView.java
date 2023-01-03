@@ -23,16 +23,19 @@ public class CodeView extends JFrame implements ActionListener {
     static String patha;
     JRadioButton radio1;
     JRadioButton radio2;
+    static String fullpath;
     public static void main(String[] args){
 
     }
 
 
 
-    public static void setC(Code c){
+    public static void setC(Code c,String path){
         code= c;
+        fullpath=path;
         run();
     }
+
 
 
     public static void run(){
@@ -47,7 +50,9 @@ public class CodeView extends JFrame implements ActionListener {
         setBounds(100, 100, 600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel1=new JPanel();
-        JTextField text1 = new JTextField();
+        text1 = new JTextField();
+        text1.setText(fullpath);
+        JLabel html=new JLabel("html");
         JLabel sorce =new JLabel("プログラム");
         JLabel ans = new JLabel("出力結果");
         JTextArea label=new JTextArea(10,10);
@@ -62,6 +67,7 @@ public class CodeView extends JFrame implements ActionListener {
         //System.out.println(c.getAnser());
         panel1.setPreferredSize(new Dimension(200,50));
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+        panel1.add(html);
         panel1.add(text1);
         panel1.add(sorce);
         panel1.add(scrollpane1);
@@ -96,6 +102,7 @@ public class CodeView extends JFrame implements ActionListener {
         if(obj==fin){
             NearAnser na=new NearAnser();
             na.run();
+            text1.setText(na.getPath());
         }
     }
 }

@@ -2,7 +2,6 @@ package main;
 
 import Mysql.Mysqllist;
 
-import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,12 +12,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileCreate {
+public class FileCreateS {
     private ArrayList<String> tablelist;
     private ArrayList<String> makelist;
-     public String sorce;
+    public String sorce;
+    private String name;
+    private String path;
+    private String fullpath;
     public static void main(String[] args){
-       // FileCreate("test");
+        // FileCreate("test");
 
     }
     public List<String> list1(){ //1
@@ -76,13 +78,13 @@ public class FileCreate {
         list1.add("a = int(clunum)");
         list1.add("clus = []");
         list1.add("datas = []");
+        list1.add("datas=data[(data['name']=='"+this.name+"') & (data['path']=='"+this.path+"')]");
+        list1.add("dat=pd.DataFrame(datas,columns=['name','path','boo','cluster'])");
         list1.add("clus.append(['all',len(data),len(data.query('boo.str.match(\"true\")',engine='python')),len(data.query('boo.str.match(\"false\")',engine='python'))])");
         list1.add("for i in range(1,a+1):");
         list1.add("     cs=data[data['cluster']==i]");
-        list1.add("     datas.append([cs.iloc[0,0],cs.iloc[0,1],cs.iloc[0,2],cs.iloc[0,3]])");
         list1.add("     clus.append([i,len(cs),len(cs.query('boo.str.match(\"true\")',engine='python')),len(cs.query('boo.str.match(\"false\")',engine='python'))])");
         list1.add("ds=pd.DataFrame(clus,columns=['クラスタ','総数','true','false'])");
-        list1.add("dat=pd.DataFrame(datas,columns=['name','path','boo','cluster'])");
         list1.add("def display_irisdata(*ags, **kwgs):");
         list1.add("     pyscript.write('data-description', ds)");
         list1.add("     pyscript.write('plot-area', fig)");
@@ -120,12 +122,18 @@ public class FileCreate {
         return list3;
     }
 
+
+    public String getFullpath() {
+        return fullpath;
+    }
+
     public void FileCreate(String path){
         File files=new File("");
         String name= files.getAbsolutePath();
         //Path p=Paths.get(name+"\\"+path+".html");
         String paths=name.substring(0,name.length()-5);
-        Path p=Paths.get(paths+"\\htmlfiles\\"+path+".html");
+        Path p= Paths.get(paths+"\\htmlfiles\\"+path+".html");
+        fullpath=paths+"\\htmlfiles\\"+path+".html";
         System.out.println(p);
         if (Files.exists(p)) {
             try{
@@ -222,6 +230,11 @@ public class FileCreate {
     }
 
     public void setSorce(String sorce){this.sorce=sorce;}
-
+    public void setAns(String path,String name){
+        this.name=name;
+        this.path=path;
+        System.out.println("name:"+this.name);
+        System.out.println("path:"+this.path);
+    }
 
 }

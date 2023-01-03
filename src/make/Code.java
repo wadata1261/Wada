@@ -23,7 +23,10 @@ public class Code {
         c.Code();
         c.CodeName();
         //System.out.println(c.getSource());
-        //System.out.println();
+        //System.out.println(c.checkName());
+        System.out.println(c.CodeName());//name
+        System.out.println(c.getFileName());//path
+        //System.out.println(c.getParent());
         //System.out.println(c.getAnser());
     }
 
@@ -68,8 +71,9 @@ public class Code {
         String sourceText = units.getResult().get().toString(); //正解例
         setSource(sourceText);
 
+        System.out.println(this.path);
         //ソースをコンパイルしてクラスオブジェクトを取得
-        System.out.println(className+":nini;"+sourceText);
+        System.out.println(className+":"+sourceText);
         Class<?> clazz = Compiler.compile(className, sourceText);
 
         //Debuggerクラス（自作）のインスタンスを作成
@@ -83,7 +87,7 @@ public class Code {
             e.printStackTrace();
         }
         this.ell=ell;
-        System.out.println(ell);
+        System.out.println("こいつはnullになる：");
     }
 
     public ExecutedLineList getEll(){return this.ell;}
@@ -139,6 +143,11 @@ public class Code {
         String result=str2.substring(str2.lastIndexOf('\\')+1);
         //System.out.println("result:"+result);
         return result;
+    }
+
+    public String FileName(){
+        File file=new File(this.path);
+        return file.getName();
     }
 
     public String checkName(){

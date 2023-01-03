@@ -12,7 +12,7 @@ public class Item implements Node{
     ValueLogList v;
     public Item(Code code) {
         this.code =code;
-        this.v = code.getvll();
+        this.v = this.code.getvll();
 
     }
 

@@ -2,10 +2,7 @@ package UI;
 
 import Mysql.Mysql;
 import Mysql.Mysqllist;
-import main.FileCreate;
-import main.FileGet;
-import main.Student;
-import main.Teacher;
+import main.*;
 import make.Code;
 
 import javax.swing.*;
@@ -21,6 +18,7 @@ public class NearAnser extends JFrame{
     JLabel[] label;
     int size;
     String filename;
+    String fullpath;
 
     public static void main(String[] args){
         run();
@@ -39,6 +37,7 @@ public class NearAnser extends JFrame{
         label=new JLabel[size];
         buttons2=new JButton[size];
         JPanel[] panels=new JPanel[size];
+        JLabel labelT=new JLabel("クラスタ->作成したjavaファイルを選択");
         for(int i=0;i<size;i++){
             label[i]=new JLabel(nw.getPathname().get(i));
             buttons2[i]=new JButton("クラスタ");
@@ -46,6 +45,7 @@ public class NearAnser extends JFrame{
             panels[i]=new JPanel();
             panels[i].setPreferredSize(new Dimension(300,200));
             panels[i].setLayout(new BoxLayout(panels[i], BoxLayout.X_AXIS));
+
             panels[i].add(label[i]);
             panels[i].add(buttons2[i]);
         }
@@ -54,6 +54,7 @@ public class NearAnser extends JFrame{
         JPanel p2 = new JPanel();
         p2.setPreferredSize(new Dimension(300,200));
         p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+        p2.add(labelT);
         for(int i=0;i<size;i++){
             p2.add(panels[i]);
         }
@@ -61,6 +62,8 @@ public class NearAnser extends JFrame{
         Container contentPane = getContentPane();
         getContentPane().add(p2, BorderLayout.CENTER);
     }
+
+    public String getPath(){return this.fullpath;}
 
     public void actionPerformed(ActionEvent e) {
         Object obj=e.getSource();
@@ -79,20 +82,24 @@ public class NearAnser extends JFrame{
                 File file=new File("");
                 String name= file.getAbsolutePath();
                 String paths=name.substring(0,name.length()-5);
-                File dir=new File(paths+"\\createfile\\"+label[i].getText());
+                File dir=new File(paths+"\\anserfile\\"+label[i].getText());
+                this.fullpath=paths+"\\anserfile\\"+label[i].getText();
                 Student s=new Student();
                 Path p= Paths.get(FileGet.fileGets()); //1こ
                 String path=String.valueOf(p.toAbsolutePath());
-                System.out.println("84:"+paths+"\\createfile\\"+label[i].getText());
+                System.out.println("84:"+paths+"\\anserfile\\"+label[i].getText());
                 //s.run(path,paths);
                 s.runs(paths+"\\anserfile\\"+label[i].getText(),path,label[i].getText());
                 ArrayList<Double> list=s.getList();
-                int num=s.getCount();
-                String source=s.getSource();
-                FileCreate fc=new FileCreate();
-                CodeView.setC(s.getAnser());
+                FileCreateS fcs=new FileCreateS();
+                fcs.setAns(s.getAnser().getFileName(),s.getAnser().CodeName());
+                fcs.setTable(list);
+                fcs.setlist(msl,list);
+                fcs.FileCreate(label[i].getText());
+                CodeView.setC(s.getAnser(),fcs.getFullpath());
                 //cv.setC(s.getAnser());
                 //cv.run();
+                /*
                 fc.setSorce(source);
                 ArrayList<Double> td=new ArrayList<>();
                 Teacher t=new Teacher();
@@ -100,7 +107,7 @@ public class NearAnser extends JFrame{
                 fc.setTable(list);
                 fc.setlist(msl,list);
                 fc.FileCreate(label[i].getText());
-
+                 */
             }
         }
     }
