@@ -94,7 +94,7 @@ public class NearAnser extends JFrame{
                 FileCreateS fcs=new FileCreateS();
                 fcs.setAns(s.getAnser().getFileName(),s.getAnser().CodeName());
                 fcs.setTable(list);
-                fcs.setlist(msl,list);
+                fcs.setlist(msl);
                 fcs.FileCreate(label[i].getText());
                 CodeView.setC(s.getAnser(),fcs.getFullpath());
                 //cv.setC(s.getAnser());

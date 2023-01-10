@@ -3,6 +3,8 @@ package UI;
 import Mysql.Mysql;
 import main.Teacher;
 import make.Code;
+import make.ValueLog;
+import make.ValueLogList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,8 +98,12 @@ public class AnserCheck extends JFrame implements ActionListener {
         label1.setText(c[i].getAnser());
         JScrollPane scrollpane1 = new JScrollPane(label);
         JScrollPane scrollPane2 = new JScrollPane(label1);
+        System.out.println(c[i].getPath());
         System.out.println(c[i].getSource());
         System.out.println(c[i].getAnser());
+        for(ValueLog vl:c[i].getvll().getValueLogList()){
+            System.out.println(vl);
+        }
         panel1.setPreferredSize(new Dimension(200,50));
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
         panel1.add(text1);

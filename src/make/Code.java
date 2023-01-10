@@ -71,21 +71,23 @@ public class Code {
         String sourceText = units.getResult().get().toString(); //正解例
         setSource(sourceText);
 
-        System.out.println(this.path);
+        //System.out.println(this.path);
         //ソースをコンパイルしてクラスオブジェクトを取得
-        System.out.println(className+":"+sourceText);
+        //System.out.println(className+":"+sourceText);
         Class<?> clazz = Compiler.compile(className, sourceText);
-
+        //System.out.println(":"+clazz);
         //Debuggerクラス（自作）のインスタンスを作成
         Debugger debugger = new Debugger();
         //クラスオブジェクトを引数としてdebugを実行し，実行行と各行における変数のリストを得る
         //ExecuteLineListクラスやExecutedLineクラスは自作
         ExecutedLineList ell = null;
+
         try {
             ell = debugger.debug(clazz);
         } catch (Exception e) {
             e.printStackTrace();
         }
+       System.out.println(path);
         this.ell=ell;
         System.out.println("こいつはnullになる：");
     }

@@ -4,6 +4,8 @@ import Mysql.Mysql;
 import Mysql.Mysqllist;
 import main.FileCreate;
 import main.Teacher;
+import make.Code;
+import make.ValueLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,19 +54,19 @@ public class FileSelect extends JFrame{
                 filename=label[i].getText();
 
                 Mysql ms=new Mysql();
-                System.out.println(label[i].getText());
+                //System.out.println(label[i].getText());
                 ArrayList<Mysqllist> msl=ms.getMysqllist(label[i].getText());
                 for(int j=0;j<msl.size();j++){
                     System.out.println(msl.get(j));
                 }
                 Teacher t=new Teacher();
                 td=t.tofs(label[i].getText());
-
-
+                System.out.println("ここまできた");
+                Code[] c=t.getC();
                 FileCreate fc=new FileCreate();
                 //fc.setSorce(source);
                 int num=t.getCount();
-                fc.setlist(msl,td);
+                fc.setlist(msl);
                 fc.setTable(td);
                 fc.FileCreate(label[i].getText());
                 File file=new File("");

@@ -33,10 +33,14 @@ public class Compiler {
         boolean success = task.call();
 
         Class<?> clazz = null;
-        System.out.println(success);
+        System.out.println("compiler:"+success);
+        System.out.println("classname:"+className);
         if (success) {
+            System.out.println("come'on");
             try {
+                System.out.println("ここ");
                 clazz = Class.forName("work." + className);//TODO:Name of a directory to place the compiled classfile , "work", should be changed.
+                System.out.println("clazz:"+clazz);
                 return clazz;
 
             } catch (ClassNotFoundException e) {
@@ -76,9 +80,12 @@ public class Compiler {
         }
 
         Class<?> clazz = null;
-        System.out.println(success);
+        System.out.println("suc:"+success);
+        System.out.println("wor:"+workDir);
+        System.out.println(mainClassName);
         if (success) {
             try {
+
                 clazz = Class.forName(workDir+"."+mainClassName);
                 return clazz;
 

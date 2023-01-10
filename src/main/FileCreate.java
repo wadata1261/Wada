@@ -173,7 +173,7 @@ public class FileCreate {
     }
     static int count=0;
 
-    public void setlist(ArrayList<Mysqllist> msl, ArrayList<Double> dis){ //2
+    public void setlist(ArrayList<Mysqllist> msl){ //2
         this.makelist=new ArrayList<>();
         String num="num=[";
         String name="name=[";

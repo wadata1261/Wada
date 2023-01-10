@@ -25,7 +25,7 @@ public class Mysql{
                     "mysqlroot"
             );// "password"の部分は，各自の環境に合わせて変更してください。
 
-            pstmt = con.prepareStatement("select * from "+file);
+            pstmt = con.prepareStatement("select * from anser."+file);
             String sql="INSERT INTO "+file+" VALUES ('"+name+"','"+path+"',"+boo+")";
             Statement smt = con.createStatement();
             int rowsCount = smt.executeUpdate(sql);
@@ -124,7 +124,7 @@ public class Mysql{
                 }
             }
         }
-        System.out.println("namelist:"+this.list);
+        //System.out.println("namelist:"+this.list);
         return this.list;
     }
 
@@ -138,7 +138,7 @@ public class Mysql{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
+                    "jdbc:mysql://192.168.0.4:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
                     "root",
                     "mysqlroot"
             );// "password"の部分は，各自の環境に合わせて変更してください。
@@ -199,7 +199,7 @@ public class Mysql{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
+                    "jdbc:mysql://192.168.0.4:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
                     "root",
                     "mysqlroot"
             );// "password"の部分は，各自の環境に合わせて変更してください。
@@ -259,7 +259,7 @@ public class Mysql{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
+                    "jdbc:mysql://192.168.0.4:3306/anser?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true",
                     "root",
                     "mysqlroot"
             );// "password"の部分は，各自の環境に合わせて変更してください。
@@ -361,8 +361,9 @@ public class Mysql{
     }
 
     public static void main(String[] args) {
-        FileSelect fs=new FileSelect();
-        String filename=fs.getFilename();
+        //this.getMysqllist("kadai12_1");
+        //FileSelect fs=new FileSelect();
+        //String filename=fs.getFilename();
         //AnserCheck ac=new AnserCheck();
         //ac.first();
 

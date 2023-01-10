@@ -26,7 +26,7 @@ public class NewFile extends JFrame implements ActionListener {
     public void run(){
         NewFile frame = new NewFile();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(10, 10, 800, 1000);
+        frame.setBounds(10, 10, 600, 300);
         frame.setTitle("新規課題作成");
         frame.setVisible(true);
 
@@ -50,34 +50,31 @@ public class NewFile extends JFrame implements ActionListener {
     }
 
     NewFile(){
-        setBounds(100, 100, 600, 400);
+
+        setBounds(80, 80, 600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel p = new JPanel();
         p.setLayout(null);
         JLabel name=new JLabel("課題名");
         label=new JLabel();
         button = new Button("課題作成");
-        button.setBounds(450, 10, 80, 30);
+        button.setBounds(300, 10, 80, 30);
         button.addActionListener(this);
         text1 = new JTextField();
-        text1.setBounds(300,10,150,30);
+        text1.setBounds(150,10,150,30);
         p.add(name);
         p.add(button);
         p.add(text1);
 
         JPanel panel1=new JPanel();
         button1=new Button("ファイル選択");
+        button1.setBounds(150,40,80,30);
         button1.addActionListener(this);
-        panel1.setPreferredSize(new Dimension(300,200));
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.X_AXIS));
         panel1.add(button1);
-        p2 = new JPanel();
-        p2.setPreferredSize(new Dimension(300,200));
-        p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
-        p2.add(p);
-        p2.add(panel1);
+        p.add(button1);
         Container contentPane = getContentPane();
-        getContentPane().add(p2, BorderLayout.CENTER);
+        getContentPane().add(p, BorderLayout.CENTER);
 
     }
     /*
@@ -87,8 +84,8 @@ public class NewFile extends JFrame implements ActionListener {
         File file=new File("");
         String name= file.getAbsolutePath();
         String paths=name.substring(0,name.length()-5);
-        File dir=new File(paths+"\\anserfile");
-        File newfile = new File(paths+"\\anserfile\\"+path);
+        File dir=new File(paths+"\\anserfile");//
+        File newfile = new File(paths+"\\anserfile\\"+path);//
 
 
         if (newfile.mkdir()) {
@@ -106,12 +103,12 @@ public class NewFile extends JFrame implements ActionListener {
         File[] list=dir.listFiles();
         for(int i=0;i<list.length;i++) {//System.out.println(list[i]);
         String a=list[i].getAbsolutePath();
-        System.out.println(a);
+        //System.out.println(a);
         }
         ArrayList<File> lists=removelist(list);
         for(int i=0;i<lists.size();i++){
             //pathname.add(list[i].getName());
-            System.out.println(lists.get(i));
+            //System.out.println(lists.get(i));
             pathname.add(lists.get(i).getName());
             //System.out.println(pathname.get(i));
         }
@@ -127,6 +124,9 @@ public class NewFile extends JFrame implements ActionListener {
                 f.remove(files[i]);
             }
             if(result.equals(".idea")){
+                f.remove(files[i]);
+            }
+            if(result.equals("out")){
                 f.remove(files[i]);
             }
         }

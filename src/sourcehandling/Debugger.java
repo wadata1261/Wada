@@ -129,8 +129,8 @@ public class Debugger {
             } catch (AbsentInformationException e) {
                 e.printStackTrace();
             }
-            System.out.println();
-            System.out.println("Variables at " + stackFrame.location().toString() + " > ");
+            //System.out.println();
+            //System.out.println("Variables at " + stackFrame.location().toString() + " > ");
             this.executedLineList = addLine(event.location().lineNumber(), event.location().method().name(),visibleVariables, this.executedLineList);
         }
 

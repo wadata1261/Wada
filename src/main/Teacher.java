@@ -9,6 +9,7 @@ import Cluster.Node;
 import Mysql.ReList;
 import make.CheckCode;
 import make.Code;
+import make.ValueLog;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -29,25 +30,26 @@ public class Teacher {
         int count=count(files);
         String pathname[]=new String[count];
         //for(int i=0;i<count;i++) pathname[i]=paths.get(i);
-        c=new Code[count];
+        this.c=new Code[count];
         List<Item> input = new ArrayList<>();
         System.out.println(files);
 
 
         for (int i=0;i<count;i++){
-            c[i]=new Code(paths.get(i));
-            c[i].Code();
+            this.c[i]=new Code(paths.get(i));
+            this.c[i].Code();
         }
-        for(int i=0;i<count;i++){
+        /*for(int i=0;i<count;i++){
             Item item=new Item(c[i]);
             input.add(item);
-        }
-        NearCodeDis ncd=new NearCodeDis(c);
-        this.valuelist=ncd.getMinlist();
+        }*/
+
         ReList rl=new ReList(filename,c);
         rl.re();
         c=rl.ReCode();
-        makeCluster(input);
+        NearCodeDis ncd=new NearCodeDis(c);
+        this.valuelist=ncd.getMinlist();
+        //makeCluster(input);
         return this.valuelist;
     }
 
