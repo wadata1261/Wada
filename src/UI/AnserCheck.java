@@ -45,7 +45,7 @@ public class AnserCheck extends JFrame implements ActionListener {
     }
     public static void run(Code c){
             Code code =c;
-            //code.Code();
+            code.Code();
             AnserCheck frame = new AnserCheck();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setBounds(10, 10, 800, 500);

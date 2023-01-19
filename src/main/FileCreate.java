@@ -66,10 +66,10 @@ public class FileCreate {
         List<String> list1=new ArrayList<>();
         list1.add("Z = cl.hierarchy.linkage(D, 'complete')");
         list1.add("Z");
-        list1.add("clu=cl.hierarchy.fcluster(Z ,0.2, criterion='distance')");
+        list1.add("clu=cl.hierarchy.fcluster(Z ,0.5, criterion='distance')");
         list1.add("data['cluster']=clu");
         list1.add("fig, ax = plt.subplots(dpi=100)");
-        list1.add("dn = cl.hierarchy.dendrogram(Z,color_threshold=0.2, labels=list(X_), ax=ax)");
+        list1.add("dn = cl.hierarchy.dendrogram(Z,color_threshold=0.5, labels=list(X_), ax=ax)");
         list1.add("ax.set_ylabel(\"Distance\")");
         list1.add("clus=data.sort_values('cluster')");
         list1.add("clunum=clus.iloc[-1]['cluster']");
@@ -180,7 +180,7 @@ public class FileCreate {
         String path="path=[";
         String boo="boo=[";
         for(int i=0;i<msl.size();i++){
-            num+=i+",";
+            num+="\""+msl.get(i).getName().replaceAll("[^0-9]", "")+"\",";
             name+="'"+msl.get(i).getName()+"',";
             path+="'"+msl.get(i).getPath()+"',";
             boo+="'"+msl.get(i).isBoo()+"',";

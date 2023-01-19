@@ -68,10 +68,10 @@ public class FileCreateS {
         List<String> list1=new ArrayList<>();
         list1.add("Z = cl.hierarchy.linkage(D, 'complete')");
         list1.add("Z");
-        list1.add("clu=cl.hierarchy.fcluster(Z ,0.2, criterion='distance')");
+        list1.add("clu=cl.hierarchy.fcluster(Z ,0.5, criterion='distance')");
         list1.add("data['cluster']=clu");
         list1.add("fig, ax = plt.subplots(dpi=100)");
-        list1.add("dn = cl.hierarchy.dendrogram(Z,color_threshold=0.2, labels=list(X_), ax=ax)");
+        list1.add("dn = cl.hierarchy.dendrogram(Z,color_threshold=0.5, labels=list(X_), ax=ax)");
         list1.add("ax.set_ylabel(\"Distance\")");
         list1.add("clus=data.sort_values('cluster')");
         list1.add("clunum=clus.iloc[-1]['cluster']");

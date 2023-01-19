@@ -1,5 +1,6 @@
 package make;
 
+import Flow.MinCostFlow;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
@@ -19,13 +20,23 @@ public class Code {
     public boolean check;
 
     public static void main(String[] args){
-        Code c=new Code("\\Users\\wadat\\IdeaProjects\\File\\Wada\\src\\testcode\\Main.java");
-        c.Code();
-        c.CodeName();
+        Code c1=new Code("C:\\Users\\wadat\\IdeaProjects\\File\\anserfile\\kadai12_2\\Tuika7\\student35\\Train02.java");
+        Code c2=new Code("C:\\Users\\wadat\\IdeaProjects\\File\\anserfile\\kadai12_2\\Tuika7\\student34\\Train02.java");
+        c1.Code();
+        c2.Code();
         //System.out.println(c.getSource());
         //System.out.println(c.checkName());
-        System.out.println(c.CodeName());//name
-        System.out.println(c.getFileName());//path
+        System.out.println(c1.CodeName());//name
+        for(ValueLog vl1:c1.getvll().getValueLogList()){
+            System.out.println(vl1.getName()+":"+vl1.getValueLog());
+        }
+        System.out.println(c2.CodeName());//path
+        for(ValueLog vl2:c2.getvll().getValueLogList()){
+            System.out.println(vl2.getName()+":"+vl2.getValueLog());
+        }
+        MinCostFlow mcf=new MinCostFlow();
+        mcf.MinCostFlow(c1.getvll(),c2.getvll());
+        System.out.println("dis="+mcf.getCostdis());
         //System.out.println(c.getParent());
         //System.out.println(c.getAnser());
     }
@@ -71,11 +82,11 @@ public class Code {
         String sourceText = units.getResult().get().toString(); //正解例
         setSource(sourceText);
 
-        //System.out.println(this.path);
+
         //ソースをコンパイルしてクラスオブジェクトを取得
-        //System.out.println(className+":"+sourceText);
+
         Class<?> clazz = Compiler.compile(className, sourceText);
-        //System.out.println(":"+clazz);
+
         //Debuggerクラス（自作）のインスタンスを作成
         Debugger debugger = new Debugger();
         //クラスオブジェクトを引数としてdebugを実行し，実行行と各行における変数のリストを得る

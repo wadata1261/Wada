@@ -24,9 +24,7 @@ public class FileSelect extends JFrame{
     int size;
     String filename;
     public static void main(String args[]){
-
         run();
-
     }
     public static void run(){
         FileSelect frame = new FileSelect();
@@ -54,35 +52,23 @@ public class FileSelect extends JFrame{
                 filename=label[i].getText();
 
                 Mysql ms=new Mysql();
-                //System.out.println(label[i].getText());
                 ArrayList<Mysqllist> msl=ms.getMysqllist(label[i].getText());
-                for(int j=0;j<msl.size();j++){
-                    System.out.println(msl.get(j));
-                }
                 Teacher t=new Teacher();
                 td=t.tofs(label[i].getText());
                 System.out.println("ここまできた");
-                Code[] c=t.getC();
                 FileCreate fc=new FileCreate();
                 //fc.setSorce(source);
-                int num=t.getCount();
                 fc.setlist(msl);
                 fc.setTable(td);
                 fc.FileCreate(label[i].getText());
                 File file=new File("");
                 String name= file.getAbsolutePath();
                 String paths=name.substring(0,name.length()-5);
-                File dir=new File(paths+"\\anserfile\\"+label[i].getText());
-                File[] list=dir.listFiles();
                 lab.setText("ファイル作成場所："+paths+"\\htmlfiles\\"+label[i].getText());
 
 
 
             }
-        }
-        System.out.println("tds");
-        for(int s=0;s<td.size();s++){
-            System.out.println(td.get(s));
         }
         System.out.println("tdf");
     }
@@ -122,14 +108,8 @@ public class FileSelect extends JFrame{
         for(int i=0;i<size;i++){
             p2.add(panels[i]);
         }
-
         p2.add(lab);
-
         p2.add(newb);
-
-
-
-
         Container contentPane = getContentPane();
         getContentPane().add(p2, BorderLayout.CENTER);
         setPanel(p2);

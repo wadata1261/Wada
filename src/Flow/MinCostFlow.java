@@ -44,7 +44,6 @@ public class MinCostFlow {
         String[] c2name = new String[v2.getValueLogList().size()];
         for (int i = 0; i < v2.getValueLogList().size(); i++) {
             c2name[i] = v2.getValueLogList().get(i).getName();
-
         }
         //int num_c1 = c1name.length;
         //int num_c2 = c2name.length;
@@ -57,6 +56,15 @@ public class MinCostFlow {
         int T_node = S_node + 1;
         double[][] as = new double[num_c1][num_c2];
         VarSim vs = new VarSim();
+
+        for(ValueLog vl:v1.getValueLogList()){
+            System.out.println(vl.getName()+":"+vl.getValueLog());
+        }
+        for(ValueLog vl:v2.getValueLogList()){
+            System.out.println(vl.getName()+":"+vl.getValueLog());
+        }
+
+
         for (int i = 0; i < num_c1; i++) {
             for (int j = 0; j < num_c2; j++) {
                 vs.VarSim(v1.getValueLogList().get(i), v2.getValueLogList().get(j));
@@ -74,19 +82,20 @@ public class MinCostFlow {
                 G.get(j + num_c1).add(graph.toEdge(G, i, j + num_c1, 1, -gain));
             }
         }
-
+        //System.out.println("78");
         for (int i = 0; i < num_c1; i++) {
             G.get(S_node).add(graph.fromEdge(G, S_node, i, 1, 0));
             G.get(i).add(graph.toEdge(G, S_node, i, 1, 0));
         }
-
+        //System.out.println("83");
         for (int j = 0; j < num_c2; j++) {
             G.get(j + num_c1).add(graph.fromEdge(G, j + num_c1, T_node, 1, 0));
             G.get(T_node).add(graph.toEdge(G, j + num_c1, T_node, 1, 0));
-
         }
         graph.setGraph(G);
+
         setList(G);
+
 /*
         for (int i = 0; i < G.size(); i++) {
             for (int j = 0; j < G.get(i).size(); j++) {
@@ -112,11 +121,14 @@ public class MinCostFlow {
         String xtype=null;
         String y=null;
         double mincost=Double.MAX_VALUE;
+
         for (int i = 0; i < num_c1; i++) {
+            //System.out.println("i:"+i);
             for (Edge e : graph.getGraph().get(i)) {
+                //System.out.println("icap="+e.icap+" cap="+e.cap);
                 if (e.icap == 1 && e.cap == 0) {
                     //System.out.println("worker " + c1name[i] + " and job " + c2name[e.to - num_c1] + " are matched (gain: " + -e.cost + ")");
-                    //System.out.println("worker " + vl1.get(i).getName() + " and job " + vl2.get(e.to - num_c1).getName() + " are matched (gain: " + -e.cost + ")");
+                    System.out.println("worker " + vl1.get(i).getName() + " and job " + vl2.get(e.to - num_c1).getName() + " are matched (gain: " + -e.cost + ")");
                     if(-e.cost<mincost) {
                         //x=c1name[i];
                         x=vl1.get(i).getName();
@@ -137,17 +149,22 @@ public class MinCostFlow {
         //System.out.println("l1"+v1.getValueLogList().get(j).getLineLog());
         //System.out.println("vl2"+v2.getValueLogList().get(k).getValueLog());
         //System.out.println("l2"+v2.getValueLogList().get(k).getLineLog());
-        mp=new MinPear(v1.getValueLogList().get(j),v2.getValueLogList().get(k));
-        setMp(mp);
-        mp.Min();
-        double codedis=1-cost/Math.max(c1name.length,c2name.length);
+        double codedis=1.0;
+        if(v1.getValueLogList().size()!=0&&v2.getValueLogList().size()!=0) {
+            mp = new MinPear(v1.getValueLogList().get(j), v2.getValueLogList().get(k));
+            setMp(mp);
+            mp.Min();
+            codedis = 1 - cost / Math.max(c1name.length, c2name.length);
+        }
         //System.out.println("mfc:"+(codedis));//1.0666666666666667
         setCostdis(codedis);
+        System.out.println("DIS:"+codedis);
     }
     public void setMp(MinPear mp){this.mp=mp;}
     public MinPear getmp(){return this.mp;}
 
     public int MinCostFlow(Graph graph, int s, int t, int inif) {
+        //System.out.println("s:"+s+"t"+t+"inif:"+inif);
         double[] dist = new double[MAX_V];
         int[] prevv = new int[MAX_V];
         int[] preve = new int[MAX_V];
@@ -159,6 +176,7 @@ public class MinCostFlow {
             dist[s] = 0;
 
             while (true) {
+                //System.out.println("true");
                 boolean update = false;
                 for (int v = 0; v < graph.V; v++) {
                     if (dist[v] == INF) continue;
@@ -167,6 +185,7 @@ public class MinCostFlow {
                         if (e.cap > 0 && dist[e.to] > dist[v] + e.cost) {
                             dist[e.to] = dist[v] + e.cost;
                             prevv[e.to] = v;
+                            //System.out.println("e.to="+e.to+" prevv[e.to]="+preve[e.to]);
                             preve[e.to] = i;
                             update = true;
                         }
@@ -174,10 +193,13 @@ public class MinCostFlow {
                 }
                 if (!update) break;
             }
-
             if (dist[t] == INF) return 0;
             int d = f;
-            for (int v = t; v != s; v = prevv[v]) {
+            //System.out.println("d:"+d);
+            //System.out.println("t="+t);
+            //System.out.println("s="+s);
+            for (int v = t; v != s; v = prevv[v]) {//無限ループ
+                //System.out.println("v="+v+" prevv[v]="+prevv[v]+" s="+s);
                 d = Math.min(d, graph.graph.get(prevv[v]).get(preve[v]).cap);
             }
             f -= d;
@@ -187,8 +209,12 @@ public class MinCostFlow {
                 Edge re = graph.redge(e);
                 e.cap -= d;
                 re.cap += d;
+                //System.out.println("e.cap:"+e.cap);
+                //System.out.println("re.cap:"+re.cap);
             }
+            //System.out.println("f:"+f);
         }
+        System.out.println("finish");
         return res;
     }
 

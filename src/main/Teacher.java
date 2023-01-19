@@ -6,6 +6,7 @@ import Cluster.ClusterBuilder;
 import Cluster.ClusterList;
 import Cluster.Item;
 import Cluster.Node;
+import Flow.MinCostFlow;
 import Mysql.ReList;
 import make.CheckCode;
 import make.Code;
@@ -24,32 +25,43 @@ public class Teacher {
 
     public ArrayList<Double> tofs(String filename){
         File file = new File(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\anserfile\\"+filename);
-        System.out.println(String.valueOf(Paths.get("").toAbsolutePath().getParent())+"\\anserfile\\"+filename);
-        //File file = new File(String.valueOf(Paths.get("").toAbsolutePath())+"\\src\\testcode");
         File files[] = file.listFiles();
         int count=count(files);
-        String pathname[]=new String[count];
-        //for(int i=0;i<count;i++) pathname[i]=paths.get(i);
         this.c=new Code[count];
-        List<Item> input = new ArrayList<>();
-        System.out.println(files);
-
-
+        //System.out.println(files);
+        this.valuelist=new ArrayList<>();
         for (int i=0;i<count;i++){
             this.c[i]=new Code(paths.get(i));
             this.c[i].Code();
         }
-        /*for(int i=0;i<count;i++){
-            Item item=new Item(c[i]);
-            input.add(item);
-        }*/
+        System.out.println("終わった");
+        int f=0;
+        Code c1=null,c2=null;
+        Double max=0.0;
+        for (int i=0;i<this.c.length;i++){
+            for(int j=i+1;j<this.c.length;j++){
+                System.out.println("i:"+c[i].CodeName()+"j:"+c[j].CodeName());
+                f++;
+                System.out.println("カウンタ"+f);
+                MinCostFlow mcf=new MinCostFlow();
+                mcf.MinCostFlow(c[i].getvll(),c[j].getvll());
+                this.valuelist.add(mcf.getCostdis());
+                if(max<mcf.getCostdis()) {
+                    max=mcf.getCostdis();
+                    c1=c[i];
+                    c2=c[j];
+                }
+            }
+        }
+        System.out.println(c1.CodeName()+":"+c2.CodeName());
 
-        ReList rl=new ReList(filename,c);
-        rl.re();
-        c=rl.ReCode();
-        NearCodeDis ncd=new NearCodeDis(c);
-        this.valuelist=ncd.getMinlist();
-        //makeCluster(input);
+
+        //ReList rl=new ReList(filename,c);
+        //rl.re();
+        //c=rl.ReCode();
+        //NearCodeDis ncd=new NearCodeDis(this.c);
+
+        System.out.println("並び替えた");
         return this.valuelist;
     }
 
@@ -68,16 +80,16 @@ public class Teacher {
 
         for (int i=0;i<count;i++){
             c[i]=new Code(paths.get(i));
-            c[i].Code();
+            //c[i].Code();
         }
 
-        for(int i=0;i<count;i++){
-            Item item=new Item(c[i]);
-            input.add(item);
-        }
+        //for(int i=0;i<count;i++){
+        //    Item item=new Item(c[i]);
+        //    input.add(item);
+        //}
         //c[0].getEll().show();
-        makeCluster(input);
-        System.out.println(list);
+        //makeCluster(input);
+        //System.out.println(list);
     }
     public static void main(String[] args){
         doto();
